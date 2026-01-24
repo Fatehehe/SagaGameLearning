@@ -7,6 +7,11 @@ namespace saga {
         Application();
         void Run();
     private:
+        void Tick(float deltaTime);
+
         sf::RenderWindow mWindow;
+        float mTargetFrameRate; 
+        sf::Clock mTickClock;
+
     };
 }
