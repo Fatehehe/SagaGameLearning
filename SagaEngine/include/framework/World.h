@@ -1,6 +1,8 @@
 #pragma once
+#include "framework/Core.h"
 
 namespace saga{
+    class Actor;
     class Application;
     class World{
     public:
@@ -13,9 +15,24 @@ namespace saga{
         void TickInternal(float deltaTime);
 
         virtual ~World();
+
+        template<typename ActorType>
+        weak<ActorType> SpawnActor();
+
     private:
 
         Application* mOwnerApp;
         bool mHasBegunPlay;
+
+        List<shared<Actor>> mActors;
+        List<shared<Actor>> mPengingActors;
     };
+
+    template <typename ActorType>
+    weak<ActorType> World::SpawnActor()
+    {
+        shared<ActorType> newActor { new ActorType(this) };
+        mPengingActors.push_back(newActor);
+        return newActor;
+    }
 }

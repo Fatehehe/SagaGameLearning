@@ -1,10 +1,13 @@
 #include "framework/World.h"
 #include "framework/Core.h"
+#include "framework/Actor.h"
 
 namespace saga{
     World::World(Application* ownerApp)
     : mOwnerApp{ownerApp},
-    mHasBegunPlay{false}
+    mHasBegunPlay{false},
+    mActors{},
+    mPengingActors{}
     {
          
     }
@@ -13,14 +16,23 @@ namespace saga{
     {
         if(!mHasBegunPlay){
             mHasBegunPlay = true;
-            LOG("WORLD BEGIN PLAY!");
             BeginPlay();
         }
     }
 
     void World::TickInternal(float deltaTime)
     {
-        LOG("WORLD TICK");
+        for(shared<Actor> actor : mPengingActors){
+            mActors.push_back(actor);
+            actor->BeginPlayInternal();
+        }
+
+        mPengingActors.clear();
+
+        for(shared<Actor> actor : mActors){
+            actor->Tick(deltaTime);
+        }
+        
         Tick(deltaTime);
     }
 

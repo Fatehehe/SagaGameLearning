@@ -18,6 +18,7 @@ namespace saga{
         float accumulatedTime = 0.f;
         float targetDeltaTime = 1.f/ mTargetFrameRate;
 
+        //Main game loop
         while (mWindow.isOpen())
         {
             while (const std::optional event = mWindow.pollEvent())
@@ -25,24 +26,23 @@ namespace saga{
                 if (event->is<sf::Event::Closed>())
                     mWindow.close();
             }
-        }
 
-        float frameRateDeltaTime = mTickClock.restart().asSeconds();
-        accumulatedTime += frameRateDeltaTime;
-        
-        while(accumulatedTime >= targetDeltaTime){
-            accumulatedTime -= targetDeltaTime;
-            TickInternal(targetDeltaTime);
+            float frameRateDeltaTime = mTickClock.restart().asSeconds();
+            accumulatedTime += frameRateDeltaTime;
+            
+            while(accumulatedTime >= targetDeltaTime){
+                accumulatedTime -= targetDeltaTime;
+                TickInternal(targetDeltaTime);
+            }
+            
             RenderInternal();
         }
-
-        LOG("Updating at framerate : %f", 1.f / frameRateDeltaTime);
     }
 
     void Application::TickInternal(float deltaTime)
     {
         Tick(deltaTime);
-        
+
         if(currentWorld){
             currentWorld->BeginPlayInternal();
             currentWorld->TickInternal(deltaTime);
