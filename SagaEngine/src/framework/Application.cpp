@@ -1,4 +1,4 @@
-#include <iostream>
+#include "framework/Core.h"
 #include "framework/Application.h"
 
 namespace saga{
@@ -23,15 +23,18 @@ namespace saga{
                 if (event->is<sf::Event::Closed>())
                     mWindow.close();
             }
-            RenderInternal();
         }
 
-        accumulatedTime += mTickClock.restart().asSeconds();
+        float frameRateDeltaTime = mTickClock.restart().asSeconds();
+        accumulatedTime += frameRateDeltaTime;
         
         while(accumulatedTime >= targetDeltaTime){
             accumulatedTime -= targetDeltaTime;
             TickInternal(targetDeltaTime);
+            RenderInternal();
         }
+
+        LOG("Updating at framerate : %f", 1.f / frameRateDeltaTime);
     }
 
     void Application::TickInternal(float deltaTime)
@@ -41,7 +44,7 @@ namespace saga{
 
     void Application::Tick(float deltaTime)
     {
-        std::cout << deltaTime << std::endl;
+        
     }
 
     void Application::RenderInternal()
