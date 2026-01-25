@@ -6,10 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(SAGA_GAME_TARGET_NAME SagaGame)
-
-add_subdirectory(Saga)
-
 include(FetchContent)
 set(SFML_LIB_NAME SFML)
 
@@ -21,3 +17,9 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(${SFML_LIB_NAME})
+
+set(SAGA_ENGINE_TARGET_NAME SagaEngine)
+set(SAGA_GAME_TARGET_NAME SagaGame)
+
+add_subdirectory(SagaEngine)
+add_subdirectory(SagaGame)
