@@ -1,11 +1,13 @@
 #include "framework/Core.h"
 #include "framework/Application.h"
+#include "framework/World.h"
 
 namespace saga{
     Application::Application() 
     : mWindow{sf::VideoMode({800, 600}), "Saga Window"},
     mTargetFrameRate{60.f},
-    mTickClock{}
+    mTickClock{},
+    currentWorld{nullptr}
     {
 
     }
@@ -40,6 +42,11 @@ namespace saga{
     void Application::TickInternal(float deltaTime)
     {
         Tick(deltaTime);
+        
+        if(currentWorld){
+            currentWorld->BeginPlayInternal();
+            currentWorld->TickInternal(deltaTime);
+        }
     }
 
     void Application::Tick(float deltaTime)
