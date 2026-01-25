@@ -8,6 +8,11 @@ namespace saga{
 
     }
 
+    Actor::~Actor()
+    {
+        LOG("Actor Destructor");
+    }
+
     void Actor::BeginPlayInternal()
     {
         mHasBegunPlay = true;
@@ -25,6 +30,6 @@ namespace saga{
 
     void Actor::Tick(float deltaTime)
     {
-        LOG("ACTOR BEGIN TICK");
+        // LOG("ACTOR BEGIN TICK");
     }
 }
