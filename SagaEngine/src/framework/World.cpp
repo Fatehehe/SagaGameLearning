@@ -1,6 +1,7 @@
 #include "framework/World.h"
 #include "framework/Core.h"
 #include "framework/Actor.h"
+// #include "World.h"
 
 namespace saga{
     World::World(Application* ownerApp)
@@ -33,12 +34,19 @@ namespace saga{
             if(iter->get()->IsPendingDestroy()){
                 iter = mActors.erase(iter);
             }else{
-                iter->get()->Tick(deltaTime);
+                iter->get()->TickInternal(deltaTime);
                 ++iter;
             }
         }
         
         Tick(deltaTime);
+    }
+
+    void World::Render(sf::RenderWindow &renderWindow)
+    {
+        for(auto& actor : mActors){
+            actor->Render(renderWindow);
+        }
     }
 
     World::~World()

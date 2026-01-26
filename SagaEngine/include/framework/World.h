@@ -1,5 +1,6 @@
 #pragma once
 #include "framework/Core.h"
+#include <SFML/Graphics.hpp>
 
 namespace saga{
     class Actor;
@@ -13,6 +14,7 @@ namespace saga{
         
         void BeginPlayInternal();
         void TickInternal(float deltaTime);
+        void Render(sf::RenderWindow& renderWindow);
 
         virtual ~World();
 

@@ -3,8 +3,8 @@
 #include "framework/World.h"
 
 namespace saga{
-    Application::Application() 
-    : mWindow{sf::VideoMode({800, 600}), "Saga Window"},
+    Application::Application(unsigned int windowWidth, unsigned int windowHeight, const std::string& title, std::uint32_t style) 
+    : mWindow{sf::VideoMode({windowWidth, windowHeight}), title, style},
     mTargetFrameRate{60.f},
     mTickClock{},
     currentWorld{nullptr}
@@ -63,11 +63,8 @@ namespace saga{
 
     void Application::Render()
     {
-        
-        sf::RectangleShape rect(sf::Vector2f({100.f, 100.f}));
-        rect.setFillColor(sf::Color::Red);
-        rect.setOrigin(sf::Vector2f(50,50));
-        rect.setPosition(sf::Vector2f(mWindow.getSize().x/2, mWindow.getSize().y/2));
-        mWindow.draw(rect);
+        if(currentWorld){
+            currentWorld->Render(mWindow);
+        }
     }
 }
