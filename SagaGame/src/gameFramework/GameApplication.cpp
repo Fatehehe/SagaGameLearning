@@ -1,6 +1,7 @@
 #include "gameFramework/GameApplication.h"
 #include "framework/World.h"
 #include "framework/Actor.h"
+#include "config.h"
 
 namespace saga{
     Application *GetApplication()
@@ -13,7 +14,7 @@ namespace saga{
     {
         weak<World> newWorld = LoadWorld<World>(); 
         actor_Test = newWorld.lock()->SpawnActor<Actor>();
-        actor_Test.lock()->SetTexturePath("/Users/fatakhillahkhaqo/Documents/Learnings/CPP/SagaGame/SagaGame/assets/PNG/Default/ship_F.png");
+        actor_Test.lock()->SetTexturePath(GetResourceDirectory() + "/PNG/Default/ship_F.png");
         timer = 0;
     }
 
