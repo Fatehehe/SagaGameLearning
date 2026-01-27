@@ -1,13 +1,16 @@
 #include "framework/Core.h"
 #include "framework/Application.h"
 #include "framework/World.h"
+#include "framework/AssetManager.h"
 
 namespace saga{
     Application::Application(unsigned int windowWidth, unsigned int windowHeight, const std::string& title, std::uint32_t style) 
     : mWindow{sf::VideoMode({windowWidth, windowHeight}), title, style},
     mTargetFrameRate{60.f},
     mTickClock{},
-    currentWorld{nullptr}
+    currentWorld{nullptr},
+    mCleanCycleClock{},
+    mCleanCycleInterval{2.0f}
     {
 
     }
@@ -33,9 +36,9 @@ namespace saga{
             while(accumulatedTime >= targetDeltaTime){
                 accumulatedTime -= targetDeltaTime;
                 TickInternal(targetDeltaTime);
+                RenderInternal();
             }
             
-            RenderInternal();
         }
     }
 
@@ -46,6 +49,11 @@ namespace saga{
         if(currentWorld){
             currentWorld->BeginPlayInternal();
             currentWorld->TickInternal(deltaTime);
+        }
+
+        if(mCleanCycleClock.getElapsedTime().asSeconds() >= mCleanCycleInterval){
+            mCleanCycleClock.restart();
+            AssetManager::Get().CleanCycle();
         }
     }
 

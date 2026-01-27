@@ -9,6 +9,7 @@ namespace saga{
     public:
         static AssetManager& Get();
         shared<sf::Texture> LoadTexture(const std::string& path);
+        void CleanCycle();
     private:
         static unique<AssetManager> assetManager;
         Dictionary<std::string, shared<sf::Texture>> mLoadedTextureMaps;

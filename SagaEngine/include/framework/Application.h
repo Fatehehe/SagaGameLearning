@@ -21,6 +21,8 @@ namespace saga {
         sf::RenderWindow mWindow;
         float mTargetFrameRate; 
         sf::Clock mTickClock;
+        sf::Clock mCleanCycleClock;
+        float mCleanCycleInterval;
 
         shared<World> currentWorld;
     };

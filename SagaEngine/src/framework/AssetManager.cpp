@@ -31,5 +31,16 @@ namespace saga{
 
         return shared<sf::Texture>{nullptr};
     }
+    
+    void AssetManager::CleanCycle()
+    {
+        for(auto iter = mLoadedTextureMaps.begin(); iter != mLoadedTextureMaps.end();){
+            if(iter->second.unique()){
+                LOG("cleaning texture: %s", iter->first.c_str());
+                iter = mLoadedTextureMaps.erase(iter);
+            }else{
+                ++iter;
+            }
+        }
+    }
 }
-
