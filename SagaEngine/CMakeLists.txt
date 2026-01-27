@@ -18,6 +18,9 @@ add_library(${SAGA_ENGINE_TARGET_NAME} STATIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include/framework/Object.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/framework/Object.cpp
 
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/framework/AssetManager.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/framework/AssetManager.cpp
+
 )
 
 target_include_directories(${SAGA_ENGINE_TARGET_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
