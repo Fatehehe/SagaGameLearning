@@ -36,5 +36,7 @@ namespace saga{
 
         shared<sf::Texture> mTexture;
         std::optional<sf::Sprite> mSprite;
+
+        void CenterPivot();
     };
 }

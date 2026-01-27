@@ -59,6 +59,7 @@ namespace saga{
         int textureWidth = mTexture->getSize().x;
         int textureHeight = mTexture->getSize().y;
         mSprite->setTextureRect(sf::IntRect{sf::Vector2i{}, sf::Vector2i{textureWidth,textureHeight}});
+        CenterPivot();
     }
     
     void Actor::SetActorLocation(const sf::Vector2f &newLocation)
@@ -89,5 +90,11 @@ namespace saga{
     void Actor::AddActorLocationOffset(float offsetAmt)
     {
         SetActorRotation(GetActorRotation() + offsetAmt);
+    }
+
+    void Actor::CenterPivot()
+    {
+        sf::FloatRect bounds = mSprite->getGlobalBounds();
+        mSprite->setOrigin(bounds.getCenter());
     }
 }
