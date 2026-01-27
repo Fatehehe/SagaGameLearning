@@ -1,12 +1,11 @@
 #include "framework/Actor.h"
+#include "framework/AssetManager.h"
 // #include "Actor.h"
 
 namespace saga{
     Actor::Actor(World *ownerWorld, const std::string& texturePath)
     : mOwnerWorld{ownerWorld}, 
-    mHasBegunPlay{false},
-    mSprite{mTexture},
-    mTexture{}
+    mHasBegunPlay{false}
     {
         SetTexturePath(texturePath);
     }
@@ -22,9 +21,9 @@ namespace saga{
         BeginPlay();
     }
 
-    void Actor::TickInternal(float deltaTime)
+    void Actor:: TickInternal(float deltaTime)
     {
-        if(IsPendingDestroy()) return;
+        if(IsPendingDestroy() || !mSprite.has_value()) return;
         Tick(deltaTime);
     }
 
@@ -41,17 +40,26 @@ namespace saga{
     void Actor::Render(sf::RenderWindow &renderWindow)
     {
         if(IsPendingDestroy()) return;
-        renderWindow.draw(mSprite);
+        renderWindow.draw(*mSprite);
     }
 
     void Actor::SetTexturePath(const std::string &texturePath)
     {
-        mTexture.loadFromFile(texturePath);
-        mSprite.setTexture(mTexture);
+        if(texturePath.empty()){
+            LOG("SetTexturePath empty");
+            return;
+        }
 
-        int textureWidth = mTexture.getSize().x;
-        int textureHeight = mTexture.getSize().y;
-        mSprite.setTextureRect(sf::IntRect{sf::Vector2i{}, sf::Vector2i{textureWidth,textureHeight}});
+        mTexture = AssetManager::Get().LoadTexture(texturePath);
+        if(!mTexture){
+            LOG("Failed to load texture: %s", texturePath.c_str());
+        }
+
+        mSprite.emplace(*mTexture);
+
+        int textureWidth = mTexture->getSize().x;
+        int textureHeight = mTexture->getSize().y;
+        mSprite->setTextureRect(sf::IntRect{sf::Vector2i{}, sf::Vector2i{textureWidth,textureHeight}});
     }
 }
 

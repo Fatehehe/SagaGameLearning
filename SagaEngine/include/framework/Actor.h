@@ -12,9 +12,11 @@ namespace saga{
         virtual ~Actor();
 
         void BeginPlayInternal();
-        void TickInternal(float deltaTime);
         virtual void BeginPlay();
+
+        void TickInternal(float deltaTime);
         virtual void Tick(float deltaTime);
+        
         void Render(sf::RenderWindow& renderWindow);
 
         void SetTexturePath(const std::string& texturePath);
@@ -23,7 +25,7 @@ namespace saga{
         World* mOwnerWorld;
         bool mHasBegunPlay;
 
-        sf::Sprite mSprite;
-        sf::Texture mTexture;
+        shared<sf::Texture> mTexture;
+        std::optional<sf::Sprite> mSprite;
     };
 }

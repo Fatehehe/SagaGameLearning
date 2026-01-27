@@ -14,7 +14,8 @@ namespace saga{
     {
         weak<World> newWorld = LoadWorld<World>(); 
         actor_Test = newWorld.lock()->SpawnActor<Actor>();
-        actor_Test.lock()->SetTexturePath(GetResourceDirectory() + "/PNG/Default/ship_F.png");
+        // LOG("sourcedir: %s", GetResourceDirectory().c_str());
+        actor_Test.lock()->SetTexturePath(GetResourceDirectory() + "PNG/Default/ship_F.png");
         timer = 0;
     }
 
