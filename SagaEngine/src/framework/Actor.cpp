@@ -1,6 +1,5 @@
 #include "framework/Actor.h"
 #include "framework/AssetManager.h"
-// #include "Actor.h"
 
 namespace saga{
     Actor::Actor(World *ownerWorld, const std::string& texturePath)
@@ -61,5 +60,34 @@ namespace saga{
         int textureHeight = mTexture->getSize().y;
         mSprite->setTextureRect(sf::IntRect{sf::Vector2i{}, sf::Vector2i{textureWidth,textureHeight}});
     }
-}
+    
+    void Actor::SetActorLocation(const sf::Vector2f &newLocation)
+    {   
+        mSprite->setPosition(newLocation);
+    }
 
+    void Actor::SetActorRotation(float newRotation)
+    {
+        mSprite->setRotation(sf::degrees(newRotation));
+    }
+    
+    sf::Vector2f Actor::GetActorLocation() const
+    {
+        return mSprite->getPosition();
+    }
+
+    float Actor::GetActorRotation() const
+    {
+        return mSprite->getRotation().asDegrees();
+    }
+
+    void Actor::AddActorLocationOffset(const sf::Vector2f &offsetAmt)
+    {
+        SetActorLocation(GetActorLocation() + offsetAmt);
+    }
+
+    void Actor::AddActorLocationOffset(float offsetAmt)
+    {
+        SetActorRotation(GetActorRotation() + offsetAmt);
+    }
+}

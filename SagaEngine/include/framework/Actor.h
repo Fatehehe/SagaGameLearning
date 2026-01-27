@@ -20,6 +20,15 @@ namespace saga{
         void Render(sf::RenderWindow& renderWindow);
 
         void SetTexturePath(const std::string& texturePath);
+
+        void SetActorLocation(const sf::Vector2f& newLocation);
+        void SetActorRotation(float newRotation);
+
+        sf::Vector2f GetActorLocation() const;
+        float GetActorRotation() const;
+
+        void AddActorLocationOffset(const sf::Vector2f& offsetAmt);
+        void AddActorLocationOffset(float offsetAmt);
     
     private:
         World* mOwnerWorld;

@@ -16,18 +16,20 @@ namespace saga{
         actor_Test = newWorld.lock()->SpawnActor<Actor>();
         // LOG("sourcedir: %s", GetResourceDirectory().c_str());
         actor_Test.lock()->SetTexturePath(GetResourceDirectory() + "PNG/Default/ship_F.png");
+        actor_Test.lock()->SetActorLocation(sf::Vector2f{400.f, 300.f});
+        actor_Test.lock()->SetActorRotation(90.f);
         timer = 0;
     }
 
     void GameApplication::Tick(float deltaTime)
     {
-        timer += deltaTime;
-        // LOG("Time: %f", timer );
-        if(timer > 2.f){
-            if(!actor_Test.expired()){
-                actor_Test.lock()->Destroy();
-            }
-        }
+        // timer += deltaTime;
+        // // LOG("Time: %f", timer );
+        // if(timer > 2.f){
+        //     if(!actor_Test.expired()){
+        //         actor_Test.lock()->Destroy();
+        //     }
+        // }
     }
     
 }
