@@ -17,4 +17,9 @@ namespace saga
     void Ship::SetVelocity(sf::Vector2f newVelocity){
         mVelocity = newVelocity;
     }
+
+    void Ship::Fire()
+    {
+    }
 } // namespace saga
+

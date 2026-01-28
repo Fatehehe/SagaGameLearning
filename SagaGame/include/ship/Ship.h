@@ -10,6 +10,8 @@ namespace saga{
         void SetVelocity(sf::Vector2f newVelocity);
         sf::Vector2f GetVelocity() const {return mVelocity;}
         
+        virtual void Fire();
+
     private:
         sf::Vector2f mVelocity;
     };

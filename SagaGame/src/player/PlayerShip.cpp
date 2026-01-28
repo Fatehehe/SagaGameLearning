@@ -1,3 +1,4 @@
+#include "weapon/KineticProjectile.h"
 #include "player/PlayerShip.h"
 #include "SFML/Graphics.hpp"
 
@@ -5,16 +6,26 @@ namespace saga{
     PlayerShip::PlayerShip(World *ownerWorld, const std::string &path)
     : Ship{ownerWorld, path},
     mMoveInput{},
-    mSpeed{300.f}
+    mSpeed{300.f},
+    mKineticProjectile{new KineticProjectile{this, 1.f}}
     {
 
     }
+
+    PlayerShip::~PlayerShip() = default;
 
     void PlayerShip::Tick(float deltaTime)
     {
         Ship::Tick(deltaTime);
         HandleInput();
         TransformInput(deltaTime);
+    }
+
+    void PlayerShip::Fire()
+    {
+        if(mKineticProjectile){
+            mKineticProjectile->Fire();
+        }
     }
 
     void PlayerShip::ClampInputToWindow()
@@ -50,6 +61,10 @@ namespace saga{
             mMoveInput.x = 1.f;
         }
         ClampInputToWindow();
+
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)){
+            Fire();
+        }
     }
 
     void PlayerShip::TransformInput(float deltaTime)

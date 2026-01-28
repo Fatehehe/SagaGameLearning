@@ -6,8 +6,8 @@ namespace saga
     class Projectile {
     public:
         void Fire();
-        virtual bool CanFire() {return true;}
-        virtual bool IsOnCooldown() {return false;}
+        virtual bool CanFire() const {return true;}
+        virtual bool IsOnCooldown() const {return false;}
         Actor* GetOwner() const {return mOwner;}
 
     protected:
