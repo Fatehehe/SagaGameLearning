@@ -30,6 +30,8 @@ namespace saga{
         void AddActorLocationOffset(const sf::Vector2f& offsetAmt);
         void AddActorLocationOffset(float offsetAmt);
     
+        sf::Vector2u GetWindowSize() const;
+        
     private:
         World* mOwnerWorld;
         bool mHasBegunPlay;

@@ -6,11 +6,15 @@ namespace saga {
     class World;
     class Application{
     public:
+        virtual ~Application();
+
         Application(unsigned int windowWidth, unsigned int windowHeight, const std::string& title, std::uint32_t style );
         void Run();
 
         template<typename WorldType>
         weak<WorldType> LoadWorld();
+
+        sf::Vector2u GetWindowSize() const;
 
     private:
         void TickInternal(float deltaTime);

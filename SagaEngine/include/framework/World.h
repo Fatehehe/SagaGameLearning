@@ -17,9 +17,10 @@ namespace saga{
         void Render(sf::RenderWindow& renderWindow);
 
         virtual ~World();
-
         template<typename ActorType>
         weak<ActorType> SpawnActor();
+
+        sf::Vector2u GetWindowSize() const;
 
     private:
 

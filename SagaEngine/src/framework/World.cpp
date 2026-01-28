@@ -1,6 +1,7 @@
 #include "framework/World.h"
 #include "framework/Core.h"
 #include "framework/Actor.h"
+#include "framework/Application.h"
 // #include "World.h"
 
 namespace saga{
@@ -52,6 +53,10 @@ namespace saga{
     World::~World()
     {
     }
+
+    sf::Vector2u World::GetWindowSize() const {
+        return mOwnerApp->GetWindowSize();
+    } 
 
     void World::BeginPlay()
     {

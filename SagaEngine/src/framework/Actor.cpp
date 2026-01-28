@@ -1,5 +1,6 @@
 #include "framework/Actor.h"
 #include "framework/AssetManager.h"
+#include "framework/World.h"
 
 namespace saga{
     Actor::Actor(World *ownerWorld, const std::string& texturePath)
@@ -90,6 +91,11 @@ namespace saga{
     void Actor::AddActorLocationOffset(float offsetAmt)
     {
         SetActorRotation(GetActorRotation() + offsetAmt);
+    }
+
+    sf::Vector2u Actor::GetWindowSize() const
+    {
+        return mOwnerWorld->GetWindowSize();
     }
 
     void Actor::CenterPivot()

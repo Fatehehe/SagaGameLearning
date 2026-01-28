@@ -15,6 +15,8 @@ namespace saga{
 
     }
 
+    Application::~Application(){}
+
     void Application::Run()
     {
         mTickClock.restart();
@@ -41,6 +43,10 @@ namespace saga{
             
         }
     }
+
+    sf::Vector2u Application::GetWindowSize() const {
+        return mWindow.getSize();
+    }   
 
     void Application::TickInternal(float deltaTime)
     {
