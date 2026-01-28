@@ -3,13 +3,13 @@
 #include "framework/Application.h"
 
 namespace saga{
-    class Actor;
+    class Ship;
     class GameApplication: public Application{
     public:
         GameApplication();
         virtual void Tick(float deltaTime) override;
     private:
         float timer;
-        weak<Actor> actor_Test;
+        weak<Ship> testShip;
     };
 }

@@ -3,6 +3,8 @@ add_executable(${SAGA_GAME_TARGET_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gameFramework/GameApplication.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gameFramework/GameApplication.cpp
 
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/ship/Ship.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/ship/Ship.cpp
 )
 
 target_include_directories(${SAGA_GAME_TARGET_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)

@@ -1,6 +1,7 @@
 #include "gameFramework/GameApplication.h"
 #include "framework/World.h"
 #include "framework/Actor.h"
+#include "ship/Ship.h"
 #include "config.h"
 
 namespace saga{
@@ -13,11 +14,11 @@ namespace saga{
     : Application{800,600, "Saga Window", sf::Style::Titlebar | sf::Style::Close}
     {
         weak<World> newWorld = LoadWorld<World>(); 
-        actor_Test = newWorld.lock()->SpawnActor<Actor>();
-        // LOG("sourcedir: %s", GetResourceDirectory().c_str());
-        actor_Test.lock()->SetTexturePath(GetResourceDirectory() + "PNG/Default/ship_F.png");
-        actor_Test.lock()->SetActorLocation(sf::Vector2f{400.f, 300.f});
-        actor_Test.lock()->SetActorRotation(90.f);
+        testShip = newWorld.lock()->SpawnActor<Ship>();
+        testShip.lock()->SetTexturePath(GetResourceDirectory() + "PNG/Default/ship_F.png");
+        testShip.lock()->SetActorLocation(sf::Vector2f{400.f, 300.f});
+        testShip.lock()->SetActorRotation(0.0f);
+        testShip.lock()->SetVelocity(sf::Vector2f{0.0f, -200.0f});
         timer = 0;
     }
 
