@@ -19,8 +19,6 @@ namespace saga{
         testShip = newWorld.lock()->SpawnActor<PlayerShip>();
         testShip.lock()->SetActorLocation(sf::Vector2f{400.f, 300.f});
         testShip.lock()->SetActorRotation(0.0f);
-        testShip.lock()->SetVelocity(sf::Vector2f{0.0f, -200.0f});
-        timer = 0;
     }
 
     void GameApplication::Tick(float deltaTime)
