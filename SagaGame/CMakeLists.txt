@@ -9,11 +9,11 @@ add_executable(${SAGA_GAME_TARGET_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/include/player/PlayerShip.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/player/PlayerShip.cpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/weapon/Projectile.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/weapon/Projectile.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/weapon/Weapon.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/weapon/Weapon.cpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/weapon/KineticProjectile.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/weapon/KineticProjectile.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/weapon/KineticWeapon.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/weapon/KineticWeapon.cpp
 )
 
 target_include_directories(${SAGA_GAME_TARGET_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)

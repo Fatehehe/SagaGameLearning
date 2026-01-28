@@ -1,4 +1,4 @@
-#include "weapon/KineticProjectile.h"
+#include "weapon/KineticWeapon.h"
 #include "player/PlayerShip.h"
 #include "SFML/Graphics.hpp"
 
@@ -7,7 +7,7 @@ namespace saga{
     : Ship{ownerWorld, path},
     mMoveInput{},
     mSpeed{300.f},
-    mKineticProjectile{new KineticProjectile{this, 1.f}}
+    mKineticWeapon{new KineticWeapon{this, 1.f}}
     {
 
     }
@@ -23,8 +23,8 @@ namespace saga{
 
     void PlayerShip::Fire()
     {
-        if(mKineticProjectile){
-            mKineticProjectile->Fire();
+        if(mKineticWeapon){
+            mKineticWeapon->Fire();
         }
     }
 

@@ -1,17 +1,17 @@
-#include "weapon/KineticProjectile.h"
+#include "weapon/KineticWeapon.h"
 #include "framework/Core.h"
 
 namespace saga
 {
-    KineticProjectile::KineticProjectile(Actor* actor, float cooldownTime)
-    : Projectile{actor},
+    KineticWeapon::KineticWeapon(Actor* actor, float cooldownTime)
+    : Weapon{actor},
     mCooldownClock{},
     mCooldownTime{cooldownTime}
     {
 
     }
 
-    bool KineticProjectile::IsOnCooldown() const
+    bool KineticWeapon::IsOnCooldown() const
     {
         if(mCooldownClock.getElapsedTime().asSeconds() > mCooldownTime){
             return false;
@@ -19,7 +19,7 @@ namespace saga
         return true;
     }
 
-    void KineticProjectile::FireImpl()
+    void KineticWeapon::FireImpl()
     {
         mCooldownClock.restart();
         LOG("Kinetic projectile Fired!");

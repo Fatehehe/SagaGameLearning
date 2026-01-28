@@ -1,11 +1,11 @@
 #pragma once
-#include "weapon/Projectile.h"
+#include "weapon/Weapon.h"
 #include "SFML/System.hpp"
 
 namespace saga{
-    class KineticProjectile: public Projectile{
+    class KineticWeapon: public Weapon{
     public:
-        KineticProjectile(Actor* actor, float cooldownTime);
+        KineticWeapon(Actor* actor, float cooldownTime);
         virtual bool IsOnCooldown() const override;
         // virtual bool CanFire() const override;
     private:

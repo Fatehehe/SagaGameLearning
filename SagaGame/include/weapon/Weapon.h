@@ -3,7 +3,7 @@
 namespace saga
 {
     class Actor;
-    class Projectile {
+    class Weapon {
     public:
         void Fire();
         virtual bool CanFire() const {return true;}
@@ -11,7 +11,7 @@ namespace saga
         Actor* GetOwner() const {return mOwner;}
 
     protected:
-        Projectile(Actor* actor);
+        Weapon(Actor* actor);
 
     private:
         virtual void FireImpl() = 0;

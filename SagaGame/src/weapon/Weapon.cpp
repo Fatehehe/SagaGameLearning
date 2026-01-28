@@ -1,13 +1,13 @@
-#include "weapon/Projectile.h"
+#include "weapon/Weapon.h"
 
 namespace saga{
-    void Projectile::Fire(){
+    void Weapon::Fire(){
         if(CanFire() && !IsOnCooldown()){
             FireImpl();
         }
     }
 
-    Projectile::Projectile(Actor* owner)
+    Weapon::Weapon(Actor* owner)
     : mOwner{owner}
     {
 
