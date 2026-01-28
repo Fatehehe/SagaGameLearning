@@ -45,7 +45,7 @@ namespace saga{
     void Actor::SetTexturePath(const std::string &texturePath)
     {
         if(texturePath.empty()){
-            LOG("SetTexturePath empty");
+            // LOG("SetTexturePath empty");
             return;
         }
 

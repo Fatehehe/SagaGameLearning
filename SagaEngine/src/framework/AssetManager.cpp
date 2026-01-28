@@ -1,11 +1,11 @@
 #include "framework/AssetManager.h"
-// #include "AssetManager.h"
 
 namespace saga{
     unique<AssetManager> AssetManager::assetManager{nullptr};
 
     AssetManager::AssetManager()
-    : mLoadedTextureMaps{}
+    : mLoadedTextureMaps{},
+    mRootDirectory{}
     {
 
     }
@@ -24,7 +24,7 @@ namespace saga{
             return found->second;
         }
         shared<sf::Texture> newTexture{new sf::Texture};
-        if(newTexture->loadFromFile(path)){
+        if(newTexture->loadFromFile(mRootDirectory + path)){
             mLoadedTextureMaps.insert({path, newTexture});
             return newTexture;
         }
@@ -42,5 +42,10 @@ namespace saga{
                 ++iter;
             }
         }
+    }
+
+    void AssetManager::SetAssetRootDirectory(const std::string &directory)
+    {
+        mRootDirectory = directory;
     }
 }
