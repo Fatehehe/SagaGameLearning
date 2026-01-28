@@ -20,19 +20,25 @@ namespace saga{
     {
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){
             mMoveInput.y = -1.f;
-        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
             mMoveInput.y = 1.f;
-        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
             mMoveInput.x = -1.f;
-        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
             mMoveInput.x = 1.f;
         }
     }
 
     void PlayerShip::TransformInput(float deltaTime)
     {
+        if(mMoveInput != sf::Vector2f{0.f,0.f}){
+            mMoveInput = mMoveInput.normalized();
+        }
         SetVelocity(mMoveInput * mSpeed);
-        mMoveInput.x = mMoveInput.y = 0.f;
+        mMoveInput = sf::Vector2f{0.f,0.f};
     }
 }
 
