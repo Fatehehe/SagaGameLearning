@@ -1,4 +1,5 @@
 #include "player/PlayerShip.h"
+#include "SFML/Graphics.hpp"
 
 namespace saga{
     PlayerShip::PlayerShip(World *ownerWorld, const std::string &path)
@@ -16,20 +17,39 @@ namespace saga{
         TransformInput(deltaTime);
     }
 
+    void PlayerShip::ClampInputToWindow()
+    {
+        sf::Vector2f actorLocation = GetActorLocation();
+        if(actorLocation.x < 0 && mMoveInput.x == -1.f){
+            mMoveInput.x = 0.f;
+        }
+
+        if(actorLocation.x > GetWindowSize().x && mMoveInput.x == 1.f){
+            mMoveInput.x = 0.f;
+        }
+
+        if(actorLocation.y < 0 && mMoveInput.y == -1.f){
+            mMoveInput.y = 0.f;
+        }
+
+        if(actorLocation.y > GetWindowSize().y && mMoveInput.y == 1.f){
+            mMoveInput.y = 0.f;
+        }
+    }
+
     void PlayerShip::HandleInput()
     {
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){
             mMoveInput.y = -1.f;
-        }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
             mMoveInput.y = 1.f;
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
             mMoveInput.x = -1.f;
-        }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
             mMoveInput.x = 1.f;
         }
+        ClampInputToWindow();
     }
 
     void PlayerShip::TransformInput(float deltaTime)

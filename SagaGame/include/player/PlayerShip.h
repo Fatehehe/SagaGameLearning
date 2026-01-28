@@ -12,6 +12,7 @@ namespace saga{
         float GetSpeed() const {return mSpeed;}
 
     private:
+        void ClampInputToWindow();
         void HandleInput();
         void TransformInput(float deltaTime);
         sf::Vector2f mMoveInput;
