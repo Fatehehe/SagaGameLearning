@@ -31,6 +31,8 @@ namespace saga{
         void AddActorLocationOffset(float offsetAmt);
     
         sf::Vector2u GetWindowSize() const;
+
+        World* GetWorld() const {return mOwnerWorld;}
         
     private:
         World* mOwnerWorld;

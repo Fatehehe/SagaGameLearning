@@ -17,8 +17,9 @@ namespace saga{
         void Render(sf::RenderWindow& renderWindow);
 
         virtual ~World();
-        template<typename ActorType>
-        weak<ActorType> SpawnActor();
+
+        template<typename ActorType, typename... Args>
+        weak<ActorType> SpawnActor(Args... args);
 
         sf::Vector2u GetWindowSize() const;
 
@@ -31,10 +32,10 @@ namespace saga{
         List<shared<Actor>> mPengingActors;
     };
 
-    template <typename ActorType>
-    weak<ActorType> World::SpawnActor()
+    template <typename ActorType, typename... Args>
+    weak<ActorType> World::SpawnActor(Args... args )
     {
-        shared<ActorType> newActor { new ActorType(this) };
+        shared<ActorType> newActor { new ActorType(this, args...) };
         mPengingActors.push_back(newActor);
         return newActor;
     }

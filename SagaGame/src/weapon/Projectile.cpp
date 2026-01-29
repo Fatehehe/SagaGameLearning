@@ -19,4 +19,19 @@ namespace saga{
     {
         mDamage = newDamage;
     }
+
+    void Projectile::Tick(float deltaTime)
+    {
+        Actor::Tick(deltaTime);
+        Move(deltaTime);
+    }
+
+    void Projectile::Move(float deltaTime)
+    {
+        float rotationDegrees = GetActorRotation();
+        float rotationRadians = rotationDegrees * (3.14159265f/180.f);
+        sf::Vector2f forward(std::cos(rotationRadians), std::sin(rotationRadians));
+
+        AddActorLocationOffset(forward * mSpeed * deltaTime);
+    }
 }
