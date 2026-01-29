@@ -26,6 +26,7 @@ namespace saga{
 
         sf::Vector2f GetActorLocation() const;
         float GetActorRotation() const;
+        sf::FloatRect GetActorBounds() const;
 
         void AddActorLocationOffset(const sf::Vector2f& offsetAmt);
         void AddActorLocationOffset(float offsetAmt);
@@ -33,6 +34,7 @@ namespace saga{
         sf::Vector2u GetWindowSize() const;
 
         World* GetWorld() const {return mOwnerWorld;}
+        bool IsActorOutOfBound() const;
         
     private:
         World* mOwnerWorld;

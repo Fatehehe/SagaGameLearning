@@ -1,4 +1,5 @@
 #include "framework/Object.h"
+#include "framework/Core.h"
 // #include "Object.h"
 
 namespace saga{
@@ -16,5 +17,6 @@ namespace saga{
     void Object::Destroy()
     {
         mIsPendingDestroy = true;
+        LOG("Destroying object");
     }
 }

@@ -24,13 +24,16 @@ namespace saga{
     {
         Actor::Tick(deltaTime);
         Move(deltaTime);
+        if(IsActorOutOfBound()){
+            Destroy();
+        }
     }
 
     void Projectile::Move(float deltaTime)
     {
         float rotationDegrees = GetActorRotation();
         float rotationRadians = rotationDegrees * (3.14159265f/180.f);
-        sf::Vector2f forward(std::cos(rotationRadians), std::sin(rotationRadians));
+        sf::Vector2f forward(std::sin(rotationRadians), -std::cos(rotationRadians));
 
         AddActorLocationOffset(forward * mSpeed * deltaTime);
     }

@@ -7,7 +7,7 @@ namespace saga{
     : Ship{ownerWorld, path},
     mMoveInput{},
     mSpeed{300.f},
-    mKineticWeapon{new KineticWeapon{this, 1.f}}
+    mKineticWeapon{new KineticWeapon{this, .2f}}
     {
 
     }

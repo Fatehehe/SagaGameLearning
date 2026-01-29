@@ -24,7 +24,7 @@ namespace saga
     void KineticWeapon::FireImpl()
     {
         mCooldownClock.restart();
-        weak<Projectile> nweProjectile = GetOwner()->GetWorld()->SpawnActor<Projectile>(GetOwner(), "PNG/Default/effect_yellow.png");
+        weak<Projectile> nweProjectile = GetOwner()->GetWorld()->SpawnActor<Projectile>(GetOwner(), "PNG/Default/star_tiny.png");
         nweProjectile.lock()->SetActorLocation(GetOwner()->GetActorLocation());
         nweProjectile.lock()->SetActorRotation(GetOwner()->GetActorRotation());
     }

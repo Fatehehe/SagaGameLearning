@@ -83,6 +83,11 @@ namespace saga{
         return mSprite->getRotation().asDegrees();
     }
 
+    sf::FloatRect Actor::GetActorBounds() const
+    {
+        return mSprite->getGlobalBounds();
+    }
+    
     void Actor::AddActorLocationOffset(const sf::Vector2f &offsetAmt)
     {
         SetActorLocation(GetActorLocation() + offsetAmt);
@@ -96,6 +101,32 @@ namespace saga{
     sf::Vector2u Actor::GetWindowSize() const
     {
         return mOwnerWorld->GetWindowSize();
+    }
+
+    bool Actor::IsActorOutOfBound() const
+    {
+        float windowWidth = GetWorld()->GetWindowSize().x;
+        float windowHeight = GetWorld()->GetWindowSize().y;
+
+        float actorWidth = GetActorBounds().size.x;
+        float actorHeight = GetActorBounds().size.y;
+        
+        sf::Vector2f actorPos = GetActorLocation();
+
+        if(actorPos.x < -actorWidth){
+            return true;
+        }
+        if(actorPos.x > windowWidth + actorWidth){
+            return true;
+        }
+        if(actorPos.y < -actorHeight){
+            return true;
+        }
+        if(actorPos.y > windowHeight + actorHeight){
+            return true;
+        } 
+
+        return false;
     }
 
     void Actor::CenterPivot()
