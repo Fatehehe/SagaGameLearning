@@ -17,6 +17,6 @@ namespace saga{
     void Object::Destroy()
     {
         mIsPendingDestroy = true;
-        LOG("Destroying object");
+        // LOG("Destroying object");
     }
 }

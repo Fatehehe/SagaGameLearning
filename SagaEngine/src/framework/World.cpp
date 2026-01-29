@@ -3,6 +3,7 @@
 #include "framework/Actor.h"
 #include "framework/Application.h"
 // #include "World.h"
+// #include "World.h"
 
 namespace saga{
     World::World(Application* ownerApp)
@@ -32,12 +33,8 @@ namespace saga{
         mPengingActors.clear();
 
         for(auto iter = mActors.begin(); iter != mActors.end();){
-            if(iter->get()->IsPendingDestroy()){
-                iter = mActors.erase(iter);
-            }else{
-                iter->get()->TickInternal(deltaTime);
-                ++iter;
-            }
+            iter->get()->TickInternal(deltaTime);
+            ++iter;    
         }
         
         Tick(deltaTime);
@@ -56,7 +53,18 @@ namespace saga{
 
     sf::Vector2u World::GetWindowSize() const {
         return mOwnerApp->GetWindowSize();
-    } 
+    }
+
+    void World::CleanCycle()
+    {
+        for(auto iter = mActors.begin(); iter != mActors.end();){
+            if(iter->get()->IsPendingDestroy()){
+                iter = mActors.erase(iter);
+            }else{
+                ++iter;
+            }
+        }
+    }
 
     void World::BeginPlay()
     {

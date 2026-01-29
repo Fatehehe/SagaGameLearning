@@ -23,6 +23,8 @@ namespace saga{
 
         sf::Vector2u GetWindowSize() const;
 
+        void CleanCycle();
+
     private:
 
         Application* mOwnerApp;
