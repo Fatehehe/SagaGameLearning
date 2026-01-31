@@ -34,7 +34,10 @@ namespace saga{
         sf::Vector2u GetWindowSize() const;
 
         World* GetWorld() const {return mOwnerWorld;}
+
         bool IsActorOutOfBound() const;
+
+        virtual void OnOverlap(Actor* other);
         
     private:
         World* mOwnerWorld;

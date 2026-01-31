@@ -29,6 +29,12 @@ namespace saga{
         }
     }
 
+    void Projectile::OnOverlap(Actor *other)
+    {
+        if(other == mOwner) return;
+        Destroy();
+    }
+
     void Projectile::Move(float deltaTime)
     {
         float rotationDegrees = GetActorRotation();

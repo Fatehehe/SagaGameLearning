@@ -129,6 +129,11 @@ namespace saga{
         return false;
     }
 
+    void Actor::OnOverlap(Actor *other)
+    {
+        LOG("ACTOR OVERLAP");
+    }
+
     void Actor::CenterPivot()
     {
         sf::FloatRect bounds = mSprite->getGlobalBounds();

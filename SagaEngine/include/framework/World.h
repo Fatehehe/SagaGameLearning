@@ -1,6 +1,7 @@
 #pragma once
 #include "framework/Core.h"
 #include <SFML/Graphics.hpp>
+#include "framework/PhysicsSystem.h"
 
 namespace saga{
     class Actor;
@@ -32,6 +33,8 @@ namespace saga{
 
         List<shared<Actor>> mActors;
         List<shared<Actor>> mPengingActors;
+
+        PhysicsSystem mPhysicsSystem;
     };
 
     template <typename ActorType, typename... Args>

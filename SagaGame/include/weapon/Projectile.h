@@ -10,7 +10,8 @@ namespace saga{
         void SetSpeed(float newSpeed);
         void SetDamage(float newDamage);
 
-        virtual void Tick(float deltaTime) override;
+        void Tick(float deltaTime) override;
+        void OnOverlap(Actor* other)override;
 
     private:
         void Move(float deltaTime);

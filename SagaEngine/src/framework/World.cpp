@@ -32,10 +32,11 @@ namespace saga{
 
         mPengingActors.clear();
 
-        for(auto iter = mActors.begin(); iter != mActors.end();){
-            iter->get()->TickInternal(deltaTime);
-            ++iter;    
+        for(auto iter = mActors.begin(); iter != mActors.end(); ++iter){
+            iter->get()->TickInternal(deltaTime); // bisa juga (iter*)
         }
+
+        mPhysicsSystem.ProcessOverlaps(mActors);
         
         Tick(deltaTime);
     }
