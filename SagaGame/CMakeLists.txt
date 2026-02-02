@@ -17,6 +17,9 @@ add_executable(${SAGA_GAME_TARGET_NAME}
 
     ${CMAKE_CURRENT_SOURCE_DIR}/include/weapon/Projectile.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/weapon/Projectile.cpp
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/enemies/EnemyShip.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/enemies/EnemyShip.cpp
 )
 
 target_include_directories(${SAGA_GAME_TARGET_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)

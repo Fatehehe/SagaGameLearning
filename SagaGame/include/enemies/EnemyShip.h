@@ -1,0 +1,12 @@
+#pragma once
+
+#include "ship/Ship.h"
+
+namespace saga{
+    class EnemyShip: public Ship{
+    public:
+        EnemyShip(World* world, const std::string& texturePath);
+        void Tick(float deltaTime) override;
+        void OnOverlap(Actor* other) override;
+    };
+}
