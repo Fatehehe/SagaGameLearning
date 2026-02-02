@@ -26,6 +26,10 @@ namespace saga{
 
         void CleanCycle();
 
+        std::vector<Actor*> mActorsToRemoveImmediately;
+        void QueueActorForImmediateRemoval(Actor* actor);
+        void RemoveActorImmediately(Actor* actor);
+
     private:
 
         Application* mOwnerApp;

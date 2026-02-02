@@ -4,6 +4,7 @@
 #include "framework/Application.h"
 // #include "World.h"
 // #include "World.h"
+// #include "World.h"
 
 namespace saga{
     World::World(Application* ownerApp)
@@ -37,6 +38,12 @@ namespace saga{
         }
 
         mPhysicsSystem.ProcessOverlaps(mActors);
+
+        for(Actor *actor : mActorsToRemoveImmediately){
+            RemoveActorImmediately(actor);
+        }
+
+        mActorsToRemoveImmediately.clear();
         
         Tick(deltaTime);
     }
@@ -63,6 +70,21 @@ namespace saga{
                 iter = mActors.erase(iter);
             }else{
                 ++iter;
+            }
+        }
+    }
+
+    void World::QueueActorForImmediateRemoval(Actor *actor)
+    {
+        mActorsToRemoveImmediately.push_back(actor);
+    }
+
+    void World::RemoveActorImmediately(Actor *actor)
+    {
+        for(auto iter = mActors.begin(); iter != mActors.end(); ++iter){
+            if(iter->get() == actor){
+                mActors.erase(iter);
+                return;
             }
         }
     }

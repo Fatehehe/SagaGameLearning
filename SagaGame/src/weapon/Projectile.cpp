@@ -1,4 +1,6 @@
 #include "weapon/Projectile.h"
+#include "enemies/EnemyShip.h"
+#include "framework/World.h"
 
 namespace saga{
     Projectile::Projectile(World *world, Actor *owner, const std::string &texturePath, float speed, float damage)
@@ -32,7 +34,10 @@ namespace saga{
     void Projectile::OnOverlap(Actor *other)
     {
         if(other == mOwner) return;
-        Destroy();
+        if(dynamic_cast<EnemyShip*>(other)){
+            GetWorld()->QueueActorForImmediateRemoval(other);
+            GetWorld()->QueueActorForImmediateRemoval(this);
+        }
     }
 
     void Projectile::Move(float deltaTime)
