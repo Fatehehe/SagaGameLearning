@@ -24,6 +24,7 @@ namespace saga{
         weak<EnemyShip> enemy = newWorld.lock()->SpawnActor<EnemyShip>("PNG/Default/enemy_A.png");
         enemy.lock()->SetActorLocation(sf::Vector2f(400.f, 150.f));
         enemy.lock()->SetActorRotation(180.f);
+        enemy.lock()->SetTarget(testShip.lock().get());
     }
 
     void GameApplication::Tick(float deltaTime)

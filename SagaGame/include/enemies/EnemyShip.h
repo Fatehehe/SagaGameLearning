@@ -13,7 +13,11 @@ namespace saga{
 
         void ApplyDamage(float amount);
 
+        void SetTarget(Actor* target);
+
     private:
         HealthComponent mHealth;
+        Actor* mTarget;
+        float mSpeed;
     };
 }
