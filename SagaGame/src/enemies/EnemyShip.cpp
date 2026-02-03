@@ -3,7 +3,8 @@
 
 namespace saga{
     EnemyShip::EnemyShip(World *world, const std::string &texturePath)
-    : Ship(world, texturePath)
+    : Ship(world, texturePath),
+    mHealth{50.f}
     {
     }
 
