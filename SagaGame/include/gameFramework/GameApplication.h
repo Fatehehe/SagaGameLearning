@@ -9,7 +9,11 @@ namespace saga{
         GameApplication();
         virtual void Tick(float deltaTime) override;
     private:
-        float timer;
-        weak<PlayerShip> testShip;
+        weak<PlayerShip> playerShip;
+        weak<World> mWorld;
+
+        sf::Clock mEnemySpawnClock;
+        float mSpawnInterval;
+        void SpawnEnemy();
     };
 }
