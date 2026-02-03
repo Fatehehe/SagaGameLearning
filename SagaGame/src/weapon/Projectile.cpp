@@ -28,14 +28,15 @@ namespace saga{
         Move(deltaTime);
         if(IsActorOutOfBound()){
             Destroy();
-        }
+        } 
     }
 
     void Projectile::OnOverlap(Actor *other)
     {
         if(other == mOwner) return;
-        if(dynamic_cast<EnemyShip*>(other)){
-            GetWorld()->QueueActorForImmediateRemoval(other);
+        if(auto enemy = dynamic_cast<EnemyShip*>(other)){
+            // GetWorld()->QueueActorForImmediateRemoval(other);
+            enemy->ApplyDamage(mDamage);
             GetWorld()->QueueActorForImmediateRemoval(this);
         }
     }

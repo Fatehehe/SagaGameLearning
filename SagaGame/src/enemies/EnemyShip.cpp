@@ -1,5 +1,6 @@
 #include "enemies/EnemyShip.h"
 #include "framework/Core.h"
+#include "framework/World.h"
 
 namespace saga{
     EnemyShip::EnemyShip(World *world, const std::string &texturePath)
@@ -16,7 +17,16 @@ namespace saga{
     void EnemyShip::OnOverlap(Actor *other)
     {
         if(other == this) return;
-        LOG("Enemy hit by: %s", typeid(*other).name());
-        Destroy();
+    }
+
+    void EnemyShip::ApplyDamage(float amount)
+    {
+        mHealth.ApplyDamage(amount);
+        if(mHealth.IsDead()){
+            GetWorld()->QueueActorForImmediateRemoval(this);
+        }else{
+            LOG("Enemy took %f damage, remaining health is %f", amount, mHealth.GetHealth());
+        }
     }
 };
+

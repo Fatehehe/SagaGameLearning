@@ -11,6 +11,8 @@ namespace saga{
         void Tick(float deltaTime) override;
         void OnOverlap(Actor* other) override;
 
+        void ApplyDamage(float amount);
+
     private:
         HealthComponent mHealth;
     };

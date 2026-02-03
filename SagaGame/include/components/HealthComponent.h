@@ -8,7 +8,7 @@ namespace saga
 
         void ApplyDamage(float damage);
         bool IsDead() const;
-        float GetHealth() const;
+        float GetHealth() const {return mHealth;}
     private:
         float mHealth;
         float mMaxHealth;

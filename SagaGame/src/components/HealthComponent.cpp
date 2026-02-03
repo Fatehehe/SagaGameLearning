@@ -1,10 +1,11 @@
-#include "HealthComponent.h"
+#include "components/HealthComponent.h"
 
 namespace saga
 {
     
     HealthComponent::HealthComponent(float maxHealth)
-    : mMaxHealth{maxHealth}
+    : mMaxHealth{maxHealth},
+    mHealth{maxHealth}
     {
 
     }
