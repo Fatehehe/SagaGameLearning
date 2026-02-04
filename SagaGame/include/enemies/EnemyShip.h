@@ -15,6 +15,9 @@ namespace saga{
 
         void SetTarget(Actor* target);
 
+        CollisionShape GetCollisionShape() const override {return CollisionShape::Circle;}
+        float GetCollisionRadius() const override {return 26.f;}
+
     private:
         HealthComponent mHealth;
         Actor* mTarget;

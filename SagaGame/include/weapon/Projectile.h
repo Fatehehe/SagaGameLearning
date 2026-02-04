@@ -13,6 +13,9 @@ namespace saga{
         void Tick(float deltaTime) override;
         void OnOverlap(Actor* other)override;
 
+        CollisionShape GetCollisionShape() const override {return CollisionShape::Circle;}
+        float GetCollisionRadius() const override {return 8.f;}
+
     private:
         void Move(float deltaTime);
         Actor* mOwner;

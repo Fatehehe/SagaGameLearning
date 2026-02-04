@@ -48,16 +48,25 @@ namespace saga{
         }
 
 #ifdef DEBUG_DRAW_BOUNDS
-        sf::FloatRect bounds = GetActorBounds();
-
-        sf::RectangleShape rect;
-        rect.setPosition(bounds.position);
-        rect.setSize(sf::Vector2f(bounds.size));
-        rect.setFillColor(sf::Color::Transparent);
-        rect.setOutlineColor(sf::Color::Green);
-        rect.setOutlineThickness(1.f);
-
-        renderWindow.draw(rect);
+        if(GetCollisionShape() == CollisionShape::Circle){
+            float radius = GetCollisionRadius();
+            sf::CircleShape circle{radius};
+            circle.setOrigin(sf::Vector2f{radius, radius});
+            circle.setPosition(GetCollisionCenter());
+            circle.setFillColor(sf::Color::Transparent);
+            circle.setOutlineColor(sf::Color::Cyan);
+            circle.setOutlineThickness(1.f);
+            renderWindow.draw(circle);
+        }else{
+            sf::FloatRect bounds = GetActorBounds();
+            sf::RectangleShape rect;
+            rect.setPosition(bounds.position);
+            rect.setSize(sf::Vector2f(bounds.size));
+            rect.setFillColor(sf::Color::Transparent);
+            rect.setOutlineColor(sf::Color::Green);
+            rect.setOutlineThickness(1.f); 
+            renderWindow.draw(rect);
+        }
 #endif
     }
 

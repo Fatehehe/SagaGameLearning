@@ -16,6 +16,9 @@ namespace saga{
         float GetAimAngle() const {return mAimAngleDegrees;}
         virtual void Fire() override;
 
+        CollisionShape GetCollisionShape() const override {return CollisionShape::Circle;}
+        float GetCollisionRadius() const override {return 26.f;}
+
     private:
         void ClampInputToWindow();
         void HandleInput();

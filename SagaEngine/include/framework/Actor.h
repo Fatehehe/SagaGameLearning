@@ -6,6 +6,12 @@
 
 namespace saga{
     class World;
+
+    enum class CollisionShape{
+        Box,
+        Circle,
+    };
+
     class Actor: public Object{
     public:
         Actor(World* ownerWorld, const std::string& texturePath = "");
@@ -38,6 +44,10 @@ namespace saga{
         bool IsActorOutOfBound() const;
 
         virtual void OnOverlap(Actor* other);
+
+        virtual CollisionShape GetCollisionShape() const {return CollisionShape::Box;}
+        virtual sf::Vector2f GetCollisionCenter() const {return GetActorLocation();}
+        virtual float GetCollisionRadius() const {return 0.f;}
         
     private:
         World* mOwnerWorld;
