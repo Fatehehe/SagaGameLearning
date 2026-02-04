@@ -1,13 +1,15 @@
 #include "weapon/KineticWeapon.h"
 #include "player/PlayerShip.h"
 #include "SFML/Graphics.hpp"
+#include "framework/World.h"
 
 namespace saga{
     PlayerShip::PlayerShip(World *ownerWorld, const std::string &path)
     : Ship{ownerWorld, path},
     mMoveInput{},
     mSpeed{300.f},
-    mKineticWeapon{new KineticWeapon{this, .2f}}
+    mKineticWeapon{new KineticWeapon{this, .2f}},
+    mAimAngleDegrees{0.f}
     {
 
     }
@@ -23,6 +25,18 @@ namespace saga{
 
     void PlayerShip::Fire()
     {
+        sf::RenderWindow& window = GetWorld()->GetRenderWindow();
+        sf::Vector2i mousePixelPos = sf::Mouse::getPosition(window);
+        sf::Vector2f mouseWorldPos = window.mapPixelToCoords(mousePixelPos);
+
+        sf::Vector2f toMouse = mouseWorldPos - GetActorLocation();
+
+        if(toMouse != sf::Vector2f{0.f,0.f}){
+            float angleRadians = std::atan2(toMouse.y, toMouse.x);
+            float angleDegrees = sf::radians(angleRadians).asDegrees();
+            mAimAngleDegrees = angleDegrees + 90.f;
+        }
+
         if(mKineticWeapon){
             mKineticWeapon->Fire();
         }
@@ -62,7 +76,7 @@ namespace saga{
         }
         ClampInputToWindow();
 
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)){
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)){
             Fire();
         }
     }

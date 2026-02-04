@@ -13,6 +13,7 @@ namespace saga{
         void SetSpeed(float newSpeed) {mSpeed = newSpeed; }
         float GetSpeed() const {return mSpeed;}
 
+        float GetAimAngle() const {return mAimAngleDegrees;}
         virtual void Fire() override;
 
     private:
@@ -21,6 +22,7 @@ namespace saga{
         void TransformInput(float deltaTime);
         sf::Vector2f mMoveInput;
         float mSpeed;
+        float mAimAngleDegrees;
 
         unique<KineticWeapon> mKineticWeapon;
     };

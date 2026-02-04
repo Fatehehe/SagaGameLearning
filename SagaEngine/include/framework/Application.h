@@ -15,6 +15,7 @@ namespace saga {
         weak<WorldType> LoadWorld();
 
         sf::Vector2u GetWindowSize() const;
+        sf::RenderWindow& GetRenderWindow() {return mWindow;}
 
     private:
         void TickInternal(float deltaTime);

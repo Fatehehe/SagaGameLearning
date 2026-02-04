@@ -2,9 +2,6 @@
 #include "framework/Core.h"
 #include "framework/Actor.h"
 #include "framework/Application.h"
-// #include "World.h"
-// #include "World.h"
-// #include "World.h"
 
 namespace saga{
     World::World(Application* ownerApp)
@@ -61,6 +58,12 @@ namespace saga{
 
     sf::Vector2u World::GetWindowSize() const {
         return mOwnerApp->GetWindowSize();
+    }
+
+    sf::RenderWindow &World::GetRenderWindow() const
+    {
+        // TODO: insert return statement here
+        return mOwnerApp->GetRenderWindow();
     }
 
     void World::CleanCycle()

@@ -1,7 +1,8 @@
 #include "weapon/KineticWeapon.h"
+#include "framework/World.h"
 #include "framework/Core.h"
 #include "weapon/Projectile.h"
-#include "framework/World.h"
+#include "player/PlayerShip.h"
 
 namespace saga
 {
@@ -24,8 +25,19 @@ namespace saga
     void KineticWeapon::FireImpl()
     {
         mCooldownClock.restart();
-        weak<Projectile> nweProjectile = GetOwner()->GetWorld()->SpawnActor<Projectile>(GetOwner(), "PNG/Default/star_tiny.png");
-        nweProjectile.lock()->SetActorLocation(GetOwner()->GetActorLocation());
-        nweProjectile.lock()->SetActorRotation(GetOwner()->GetActorRotation());
+
+        auto owner = GetOwner();
+        auto world = owner->GetWorld();
+        auto player = dynamic_cast<PlayerShip*>(owner);
+
+        float rotation = owner->GetActorRotation();
+        if(player){
+            rotation = player->GetAimAngle();
+        }
+
+        weak<Projectile> nweProjectile = world->SpawnActor<Projectile>(owner, "PNG/Default/star_tiny.png");
+        nweProjectile.lock()->SetActorLocation(owner->GetActorLocation());
+        nweProjectile.lock()->SetActorRotation(rotation);
+        nweProjectile.lock()->SetDamage(10.f);
     }
 } // namespace saga

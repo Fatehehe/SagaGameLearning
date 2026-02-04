@@ -23,6 +23,7 @@ namespace saga{
         weak<ActorType> SpawnActor(Args... args);
 
         sf::Vector2u GetWindowSize() const;
+        sf::RenderWindow& GetRenderWindow() const;
 
         void CleanCycle();
 
