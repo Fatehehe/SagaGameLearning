@@ -1,3 +1,5 @@
+#define DEBUG_DRAW_BOUNDS
+
 #include "framework/Actor.h"
 #include "framework/AssetManager.h"
 #include "framework/World.h"
@@ -40,7 +42,23 @@ namespace saga{
     void Actor::Render(sf::RenderWindow &renderWindow)
     {
         if(IsPendingDestroy()) return;
-        renderWindow.draw(*mSprite);
+        
+        if(mSprite.has_value()){
+            renderWindow.draw(*mSprite);
+        }
+
+#ifdef DEBUG_DRAW_BOUNDS
+        sf::FloatRect bounds = GetActorBounds();
+
+        sf::RectangleShape rect;
+        rect.setPosition(bounds.position);
+        rect.setSize(sf::Vector2f(bounds.size));
+        rect.setFillColor(sf::Color::Transparent);
+        rect.setOutlineColor(sf::Color::Green);
+        rect.setOutlineThickness(1.f);
+
+        renderWindow.draw(rect);
+#endif
     }
 
     void Actor::SetTexturePath(const std::string &texturePath)
