@@ -2,6 +2,7 @@
 
 #include "ship/Ship.h"
 #include "components/HealthComponent.h"
+#include "weapon/KineticWeapon.h"
 
 namespace saga{
     class EnemyShip: public Ship{
@@ -19,6 +20,8 @@ namespace saga{
         float GetCollisionRadius() const override {return 26.f;}
 
     private:
+        unique<KineticWeapon> mWeapon;
+        float mFireCooldown = 2.f;
         HealthComponent mHealth;
         Actor* mTarget;
         float mSpeed;

@@ -9,12 +9,27 @@ namespace saga{
     mTarget{nullptr},
     mSpeed{150.f}
     {
+          mWeapon = std::make_unique<KineticWeapon>(this, mFireCooldown);
     }
 
     void EnemyShip::Tick(float deltaTime)
     {
         Ship::Tick(deltaTime);
         if(!mTarget) return;
+
+        if(mTarget){
+            sf::Vector2f toTarget = mTarget->GetActorLocation() - GetActorLocation();
+
+            if(toTarget != sf::Vector2f{0.f,0.f}){
+                float angleRad = std::atan2(toTarget.y, toTarget.x);
+                float angelDeg = sf::radians(angleRad).asDegrees();
+                SetActorRotation(angelDeg + 90.f);
+            }
+
+            if(mWeapon){
+                mWeapon->Fire();
+            }
+        }
         
         //Add anime AI behavior
         sf::Vector2f toPlayer = mTarget->GetActorLocation() - GetActorLocation();
