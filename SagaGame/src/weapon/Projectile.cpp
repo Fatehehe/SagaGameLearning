@@ -1,8 +1,10 @@
 #include "weapon/Projectile.h"
 #include "enemies/EnemyShip.h"
+#include "player/PlayerShip.h"
 #include "framework/World.h"
 
 namespace saga{
+
     Projectile::Projectile(World *world, Actor *owner, const std::string &texturePath, float speed, float damage)
     : Actor{world, texturePath},
     mOwner{owner},
@@ -22,6 +24,17 @@ namespace saga{
         mDamage = newDamage;
     }
 
+    void Projectile::BeginPlay()
+    {
+        if(mSprite.has_value()){
+            if(mProjectileType == ProjectileType::Player){
+                mSprite->setColor(sf::Color::Cyan);
+            }else{
+                mSprite->setColor(sf::Color::Red);
+            }
+        }
+    }
+
     void Projectile::Tick(float deltaTime)
     {
         Actor::Tick(deltaTime);
@@ -34,10 +47,18 @@ namespace saga{
     void Projectile::OnOverlap(Actor *other)
     {
         if(other == mOwner) return;
-        if(auto enemy = dynamic_cast<EnemyShip*>(other)){
-            // GetWorld()->QueueActorForImmediateRemoval(other);
-            enemy->ApplyDamage(mDamage);
-            GetWorld()->QueueActorForImmediateRemoval(this);
+        if(mProjectileType == ProjectileType::Player){
+            if(auto enemy = dynamic_cast<EnemyShip*>(other)){
+                enemy->ApplyDamage(mDamage);
+                GetWorld()->QueueActorForImmediateRemoval(this);
+            }
+        }
+        else if(mProjectileType == ProjectileType::Enemy){
+            if(auto player = dynamic_cast<PlayerShip*>(other)){
+                //TODO: Apply damage to player
+                LOG("Damaging the player");
+                GetWorld()->QueueActorForImmediateRemoval(this);
+            }
         }
     }
 

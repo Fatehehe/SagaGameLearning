@@ -39,5 +39,11 @@ namespace saga
         nweProjectile.lock()->SetActorLocation(owner->GetActorLocation());
         nweProjectile.lock()->SetActorRotation(rotation);
         nweProjectile.lock()->SetDamage(10.f);
+
+        if(dynamic_cast<PlayerShip*>(owner)){
+            nweProjectile.lock()->SetProjectileType(ProjectileType::Player);
+        }else{
+            nweProjectile.lock()->SetProjectileType(ProjectileType::Enemy);
+        }
     }
 } // namespace saga

@@ -48,13 +48,15 @@ namespace saga{
         virtual CollisionShape GetCollisionShape() const {return CollisionShape::Box;}
         virtual sf::Vector2f GetCollisionCenter() const {return GetActorLocation();}
         virtual float GetCollisionRadius() const {return 0.f;}
+
+    protected:
+        std::optional<sf::Sprite> mSprite;
         
     private:
         World* mOwnerWorld;
         bool mHasBegunPlay;
 
         shared<sf::Texture> mTexture;
-        std::optional<sf::Sprite> mSprite;
 
         void CenterPivot();
     };
