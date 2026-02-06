@@ -20,6 +20,7 @@ namespace saga{
         CollisionShape GetCollisionShape() const override {return CollisionShape::Circle;}
         float GetCollisionRadius() const override {return 26.f;}
 
+        float GetProjectileDamage() const override;
         void ApplyDamage(float amount);
         bool IsDead() const {return mHealth.IsDead();}
 

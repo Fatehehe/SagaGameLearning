@@ -9,6 +9,8 @@ namespace saga{
 
         void SetVelocity(sf::Vector2f newVelocity);
         sf::Vector2f GetVelocity() const {return mVelocity;}
+
+        virtual float GetProjectileDamage() const {return 10.f;}
         
         virtual void Fire();
 

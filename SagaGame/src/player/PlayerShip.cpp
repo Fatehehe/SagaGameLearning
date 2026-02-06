@@ -43,6 +43,11 @@ namespace saga{
         }
     }
 
+    float PlayerShip::GetProjectileDamage() const
+    {
+        return 20.f;
+    }
+
     void PlayerShip::ApplyDamage(float amount)
     {
         mHealth.ApplyDamage(amount);

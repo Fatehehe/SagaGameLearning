@@ -35,15 +35,20 @@ namespace saga
             rotation = player->GetAimAngle();
         }
 
-        weak<Projectile> nweProjectile = world->SpawnActor<Projectile>(owner, "PNG/Default/star_tiny.png");
-        nweProjectile.lock()->SetActorLocation(owner->GetActorLocation());
-        nweProjectile.lock()->SetActorRotation(rotation);
-        nweProjectile.lock()->SetDamage(10.f);
+        weak<Projectile> newProjectile = world->SpawnActor<Projectile>(owner, "PNG/Default/star_tiny.png");
+        newProjectile.lock()->SetActorLocation(owner->GetActorLocation());
+        newProjectile.lock()->SetActorRotation(rotation);
+
+        if(auto ship = dynamic_cast<Ship*>(owner)){
+            newProjectile.lock()->SetDamage(ship->GetProjectileDamage());
+        }else{
+            newProjectile.lock()->SetDamage(10.f);
+        }
 
         if(dynamic_cast<PlayerShip*>(owner)){
-            nweProjectile.lock()->SetProjectileType(ProjectileType::Player);
+            newProjectile.lock()->SetProjectileType(ProjectileType::Player);
         }else{
-            nweProjectile.lock()->SetProjectileType(ProjectileType::Enemy);
+            newProjectile.lock()->SetProjectileType(ProjectileType::Enemy);
         }
     }
 } // namespace saga
