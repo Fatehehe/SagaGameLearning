@@ -7,12 +7,16 @@ namespace saga{
     PlayerShip::PlayerShip(World *ownerWorld, const std::string &path)
     : Ship{ownerWorld, path},
     mMoveInput{},
-    mSpeed{300.f},
-    mKineticWeapon{new KineticWeapon{this, .2f}},
     mAimAngleDegrees{0.f},
     mHealth{100.f}
     {
-
+        mShipStats.SetProjectileDamage(50.f);
+        mShipStats.SetMoveSpeed(400.f);
+        mShipStats.SetFireCooldown(.1f);
+        mShipStats.SetMaxHealth(100.f);
+        
+        mHealth = HealthComponent{mShipStats.GetMaxHealth()};
+        mKineticWeapon = std::make_unique<KineticWeapon>(this, mShipStats.GetFireCooldown());
     }
 
     PlayerShip::~PlayerShip() = default;
@@ -41,11 +45,6 @@ namespace saga{
         if(mKineticWeapon){
             mKineticWeapon->Fire();
         }
-    }
-
-    float PlayerShip::GetProjectileDamage() const
-    {
-        return 20.f;
     }
 
     void PlayerShip::ApplyDamage(float amount)
@@ -102,7 +101,7 @@ namespace saga{
         if(mMoveInput != sf::Vector2f{0.f,0.f}){
             mMoveInput = mMoveInput.normalized();
         }
-        SetVelocity(mMoveInput * mSpeed);
+        SetVelocity(mMoveInput * mShipStats.GetMoveSpeed());
         mMoveInput = sf::Vector2f{0.f,0.f};
     }
 }

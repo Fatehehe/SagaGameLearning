@@ -1,6 +1,7 @@
 #pragma once
 #include "ship/Ship.h"
 #include "components/HealthComponent.h"
+#include "components/ShipStatsComponent.h"
 
 namespace saga{
     class KineticWeapon;
@@ -8,28 +9,25 @@ namespace saga{
     public:
         PlayerShip(World* ownerWorld, const std::string& path = "PNG/Default/ship_F.png");
         virtual ~PlayerShip();
+
+        const ShipStatsComponent& GetShipStats() const {return mShipStats;}
         
-        virtual void Tick(float deltaTime) override;
-        
-        void SetSpeed(float newSpeed) {mSpeed = newSpeed; }
-        float GetSpeed() const {return mSpeed;}
+        void Tick(float deltaTime) override;
 
         float GetAimAngle() const {return mAimAngleDegrees;}
-        virtual void Fire() override;
+        void ApplyDamage(float amount);
+        void Fire() override;
 
         CollisionShape GetCollisionShape() const override {return CollisionShape::Circle;}
         float GetCollisionRadius() const override {return 26.f;}
-
-        float GetProjectileDamage() const override;
-        void ApplyDamage(float amount);
         bool IsDead() const {return mHealth.IsDead();}
 
     private:
         void ClampInputToWindow();
         void HandleInput();
         void TransformInput(float deltaTime);
+        
         sf::Vector2f mMoveInput;
-        float mSpeed;
         float mAimAngleDegrees;
 
         HealthComponent mHealth;

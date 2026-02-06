@@ -21,9 +21,7 @@ namespace saga{
 
     private:
         unique<KineticWeapon> mWeapon;
-        float mFireCooldown = 2.f;
         HealthComponent mHealth;
         Actor* mTarget;
-        float mSpeed;
     };
 }
