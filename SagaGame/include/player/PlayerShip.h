@@ -1,5 +1,6 @@
 #pragma once
 #include "ship/Ship.h"
+#include "components/HealthComponent.h"
 
 namespace saga{
     class KineticWeapon;
@@ -19,6 +20,9 @@ namespace saga{
         CollisionShape GetCollisionShape() const override {return CollisionShape::Circle;}
         float GetCollisionRadius() const override {return 26.f;}
 
+        void ApplyDamage(float amount);
+        bool IsDead() const {return mHealth.IsDead();}
+
     private:
         void ClampInputToWindow();
         void HandleInput();
@@ -26,6 +30,8 @@ namespace saga{
         sf::Vector2f mMoveInput;
         float mSpeed;
         float mAimAngleDegrees;
+
+        HealthComponent mHealth;
 
         unique<KineticWeapon> mKineticWeapon;
     };

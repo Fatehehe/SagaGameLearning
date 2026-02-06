@@ -9,7 +9,8 @@ namespace saga{
     mMoveInput{},
     mSpeed{300.f},
     mKineticWeapon{new KineticWeapon{this, .2f}},
-    mAimAngleDegrees{0.f}
+    mAimAngleDegrees{0.f},
+    mHealth{100.f}
     {
 
     }
@@ -39,6 +40,16 @@ namespace saga{
 
         if(mKineticWeapon){
             mKineticWeapon->Fire();
+        }
+    }
+
+    void PlayerShip::ApplyDamage(float amount)
+    {
+        mHealth.ApplyDamage(amount);
+        LOG("Damage dealt: %f", mHealth.GetHealth());
+        if(mHealth.IsDead()){
+            GetWorld()->QueueActorForImmediateRemoval(this);
+            //TODO: Trigger Game Over
         }
     }
 

@@ -56,7 +56,7 @@ namespace saga{
         else if(mProjectileType == ProjectileType::Enemy){
             if(auto player = dynamic_cast<PlayerShip*>(other)){
                 //TODO: Apply damage to player
-                LOG("Damaging the player");
+                player->ApplyDamage(mDamage);
                 GetWorld()->QueueActorForImmediateRemoval(this);
             }
         }
