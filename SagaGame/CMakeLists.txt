@@ -23,6 +23,9 @@ add_executable(${SAGA_GAME_TARGET_NAME}
 
     ${CMAKE_CURRENT_SOURCE_DIR}/include/components/HealthComponent.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/components/HealthComponent.cpp
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/components/ShipStatsComponent.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/components/ShipStatsComponent.cpp
 )
 
 target_include_directories(${SAGA_GAME_TARGET_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
