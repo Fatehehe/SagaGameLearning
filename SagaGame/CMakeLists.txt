@@ -26,6 +26,9 @@ add_executable(${SAGA_GAME_TARGET_NAME}
 
     ${CMAKE_CURRENT_SOURCE_DIR}/include/components/ShipStatsComponent.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/components/ShipStatsComponent.cpp
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/weapon/SpreadShotWeapon.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/weapon/SpreadShotWeapon.cpp
 )
 
 target_include_directories(${SAGA_GAME_TARGET_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)

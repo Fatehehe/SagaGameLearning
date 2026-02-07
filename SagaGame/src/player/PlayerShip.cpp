@@ -1,4 +1,4 @@
-#include "weapon/KineticWeapon.h"
+#include "weapon/SpreadShotWeapon.h"
 #include "player/PlayerShip.h"
 #include "SFML/Graphics.hpp"
 #include "framework/World.h"
@@ -16,7 +16,7 @@ namespace saga{
         mShipStats.SetMaxHealth(100.f);
         
         mHealth = HealthComponent{mShipStats.GetMaxHealth()};
-        mKineticWeapon = std::make_unique<KineticWeapon>(this, mShipStats.GetFireCooldown());
+        mKineticWeapon = std::make_unique<SpreadShotWeapon>(this, mShipStats.GetFireCooldown(), 5.f, 45.f);
     }
 
     PlayerShip::~PlayerShip() = default;

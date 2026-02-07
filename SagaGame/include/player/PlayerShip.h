@@ -4,7 +4,7 @@
 #include "components/ShipStatsComponent.h"
 
 namespace saga{
-    class KineticWeapon;
+    class SpreadShotWeapon;
     class PlayerShip: public Ship{
     public:
         PlayerShip(World* ownerWorld, const std::string& path = "PNG/Default/ship_F.png");
@@ -32,6 +32,6 @@ namespace saga{
 
         HealthComponent mHealth;
 
-        unique<KineticWeapon> mKineticWeapon;
+        unique<SpreadShotWeapon> mKineticWeapon;
     };
 }
