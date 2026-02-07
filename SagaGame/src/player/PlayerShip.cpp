@@ -12,11 +12,10 @@ namespace saga{
     {
         mShipStats.SetProjectileDamage(50.f);
         mShipStats.SetMoveSpeed(400.f);
-        mShipStats.SetFireCooldown(.1f);
         mShipStats.SetMaxHealth(100.f);
         
         mHealth = HealthComponent{mShipStats.GetMaxHealth()};
-        mKineticWeapon = std::make_unique<SpreadShotWeapon>(this, mShipStats.GetFireCooldown(), 5.f, 45.f);
+        mKineticWeapon = std::make_unique<SpreadShotWeapon>(this, .5f, 3, 45.f);
     }
 
     PlayerShip::~PlayerShip() = default;

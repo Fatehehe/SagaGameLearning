@@ -9,6 +9,10 @@ namespace saga
         void Fire();
         virtual bool CanFire() const {return true;}
         virtual bool IsOnCooldown() const;
+
+        void SetCooldownTime(float cooldown){mCooldownTime = cooldown;}
+        float GetCooldownTime() {return mCooldownTime;}
+
         Actor* GetOwner() const {return mOwner;}
 
     protected:

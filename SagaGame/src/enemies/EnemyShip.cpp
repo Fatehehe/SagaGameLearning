@@ -10,11 +10,10 @@ namespace saga{
     {
         mShipStats.SetProjectileDamage(10.f);
         mShipStats.SetMoveSpeed(200.f);
-        mShipStats.SetFireCooldown(1.5f);
         mShipStats.SetMaxHealth(50.f);
 
         mHealth = HealthComponent(mShipStats.GetMaxHealth());
-        mWeapon = std::make_unique<KineticWeapon>(this, mShipStats.GetFireCooldown());
+        mWeapon = std::make_unique<KineticWeapon>(this, 1.5f);
     }
 
     void EnemyShip::Tick(float deltaTime)
