@@ -7,7 +7,11 @@ namespace saga{
     class GameApplication: public Application{
     public:
         GameApplication();
-        virtual void Tick(float deltaTime) override;
+        void Tick(float deltaTime) override;
+
+        void AddEnemyKill();
+        int GetEnemyKillCount() const {return mEnemyKillCount;}
+
     private:
         weak<PlayerShip> playerShip;
         weak<World> mWorld;
@@ -15,5 +19,7 @@ namespace saga{
         sf::Clock mEnemySpawnClock;
         float mSpawnInterval;
         void SpawnEnemy();
+
+        int mEnemyKillCount = 0;
     };
 }

@@ -25,6 +25,8 @@ namespace saga{
         sf::Vector2u GetWindowSize() const;
         sf::RenderWindow& GetRenderWindow() const;
 
+        Application* GetApplication() const {return mOwnerApp;}
+
         void CleanCycle();
 
         std::vector<Actor*> mActorsToRemoveImmediately;

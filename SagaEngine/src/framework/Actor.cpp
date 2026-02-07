@@ -158,7 +158,7 @@ namespace saga{
 
     void Actor::OnOverlap(Actor *other)
     {
-        LOG("ACTOR OVERLAP");
+        // LOG("ACTOR OVERLAP");
     }
 
     void Actor::CenterPivot()

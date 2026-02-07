@@ -31,6 +31,12 @@ namespace saga{
         }
     }
 
+    void GameApplication::AddEnemyKill()
+    {
+        ++mEnemyKillCount;
+        LOG("Enemy kill count: %d", mEnemyKillCount);
+    }
+
     void GameApplication::SpawnEnemy()
     {
         auto world = mWorld.lock();

@@ -19,6 +19,8 @@ namespace saga{
         CollisionShape GetCollisionShape() const override {return CollisionShape::Circle;}
         float GetCollisionRadius() const override {return 26.f;}
 
+        bool IsDead() const {return mHealth.IsDead();}
+
     private:
         unique<KineticWeapon> mWeapon;
         HealthComponent mHealth;

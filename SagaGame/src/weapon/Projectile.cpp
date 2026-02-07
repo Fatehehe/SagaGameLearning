@@ -2,6 +2,7 @@
 #include "enemies/EnemyShip.h"
 #include "player/PlayerShip.h"
 #include "framework/World.h"
+#include "gameFramework/GameApplication.h"
 
 namespace saga{
 
@@ -51,6 +52,12 @@ namespace saga{
             if(auto enemy = dynamic_cast<EnemyShip*>(other)){
                 enemy->ApplyDamage(mDamage);
                 GetWorld()->QueueActorForImmediateRemoval(this);
+
+                if(enemy->IsDead()){
+                    if(auto* gameApp = dynamic_cast<GameApplication*>(GetWorld()->GetApplication())){
+                        gameApp->AddEnemyKill();
+                    }
+                }
             }
         }
         else if(mProjectileType == ProjectileType::Enemy){
