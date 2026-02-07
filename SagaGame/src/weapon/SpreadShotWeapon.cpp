@@ -23,6 +23,11 @@ namespace saga{
         if(!world || !ship) return;
 
         float baseAngle = owner->GetActorRotation();
+
+        if(auto player = dynamic_cast<PlayerShip*>(owner)){
+            baseAngle = player->GetAimAngle();
+        }
+
         float halfsSpread = mSpreadAngle/2;
 
         for(int i = 0; i < mNumProjectiles; i++){
