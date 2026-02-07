@@ -6,7 +6,7 @@
 
 namespace saga{
     SpreadShotWeapon::SpreadShotWeapon(Actor *owner, float cooldownTime, int numProjectiles, float spreadAngle)
-    : Weapon{owner},
+    : KineticWeapon{owner, cooldownTime},
     mNumProjectiles{numProjectiles},
     mSpreadAngle{spreadAngle}
     {

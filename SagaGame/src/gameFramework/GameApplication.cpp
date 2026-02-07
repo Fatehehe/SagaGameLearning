@@ -35,6 +35,13 @@ namespace saga{
     {
         ++mEnemyKillCount;
         LOG("Enemy kill count: %d", mEnemyKillCount);
+
+        if(!playerShip.expired()){
+            auto player = playerShip.lock();
+            if(mEnemyKillCount == 10){
+                player->UpgradeToSpreadShot();
+            }
+        }
     }
 
     void GameApplication::SpawnEnemy()

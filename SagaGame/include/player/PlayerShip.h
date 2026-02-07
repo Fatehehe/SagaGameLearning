@@ -4,7 +4,7 @@
 #include "components/ShipStatsComponent.h"
 
 namespace saga{
-    class SpreadShotWeapon;
+    class KineticWeapon;
     class PlayerShip: public Ship{
     public:
         PlayerShip(World* ownerWorld, const std::string& path = "PNG/Default/ship_F.png");
@@ -13,6 +13,8 @@ namespace saga{
         const ShipStatsComponent& GetShipStats() const {return mShipStats;}
         
         void Tick(float deltaTime) override;
+
+        void UpgradeToSpreadShot();
 
         float GetAimAngle() const {return mAimAngleDegrees;}
         void ApplyDamage(float amount);
@@ -31,7 +33,8 @@ namespace saga{
         float mAimAngleDegrees;
 
         HealthComponent mHealth;
+        unique<KineticWeapon> mKineticWeapon;
 
-        unique<SpreadShotWeapon> mKineticWeapon;
+        bool mHasWeaponUpgraded = false;
     };
 }

@@ -1,3 +1,4 @@
+#include "weapon/KineticWeapon.h"
 #include "weapon/SpreadShotWeapon.h"
 #include "player/PlayerShip.h"
 #include "SFML/Graphics.hpp"
@@ -15,7 +16,7 @@ namespace saga{
         mShipStats.SetMaxHealth(100.f);
         
         mHealth = HealthComponent{mShipStats.GetMaxHealth()};
-        mKineticWeapon = std::make_unique<SpreadShotWeapon>(this, .5f, 3, 45.f);
+        mKineticWeapon = std::make_unique<KineticWeapon>(this, .3f);
     }
 
     PlayerShip::~PlayerShip() = default;
@@ -25,6 +26,15 @@ namespace saga{
         Ship::Tick(deltaTime);
         HandleInput();
         TransformInput(deltaTime);
+    }
+
+    void PlayerShip::UpgradeToSpreadShot()
+    {
+        if(!mHasWeaponUpgraded){
+            mHasWeaponUpgraded = true;
+            LOG("Upgraded weapon to SpreadShot!");
+            mKineticWeapon = std::make_unique<SpreadShotWeapon>(this, 0.5f, 3, 45.f);
+        }
     }
 
     void PlayerShip::Fire()
