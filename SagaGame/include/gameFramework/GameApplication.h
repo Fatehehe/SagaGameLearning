@@ -42,6 +42,8 @@ namespace saga{
         sf::Font mFont;
         sf::Text mKillCountText;
 
+        sf::Text mHealthText;
+
         void StartGame();
         void RestartGame();
     };

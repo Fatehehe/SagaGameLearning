@@ -22,7 +22,11 @@ namespace saga{
 
         CollisionShape GetCollisionShape() const override {return CollisionShape::Circle;}
         float GetCollisionRadius() const override {return 26.f;}
+
         bool IsDead() const {return mHealth.IsDead();}
+        float GetHealth() const {return mHealth.GetHealth();}
+        float GetMaxHealth() const {return mHealth.GetMaxHealth();}
+        float GetHealthPercentage() const {return (mHealth.GetHealth() / mHealth.GetMaxHealth());}
 
     private:
         void ClampInputToWindow();

@@ -19,6 +19,7 @@ namespace saga{
     mKillCountText{mFont},
     mEnemyKillCount{0},
     mTitleText{mFont, "", 48},
+    mHealthText{mFont, "", 18},
     mStartPromptText{mFont, "", 24},
     mGameOverText{mFont, "", 48},
     mFinalScoreText{mFont, "", 24}
@@ -34,6 +35,13 @@ namespace saga{
         mTitleText.setCharacterSize(48);
         mTitleText.setFillColor(sf::Color::White);
         mTitleText.setPosition(sf::Vector2f{200.f, 150.f});
+
+        //Health text
+        mHealthText.setFont(mFont);
+        mHealthText.setString("Health: 100");
+        mHealthText.setCharacterSize(18);
+        mHealthText.setFillColor(sf::Color::White);
+        mHealthText.setPosition(sf::Vector2f{600.f, 10.f});
 
         //Start prompt
         mStartPromptText.setFont(mFont);
@@ -86,6 +94,12 @@ namespace saga{
             mEnemySpawnClock.restart();
             SpawnEnemy();
         }
+
+        if(!playerShip.expired()){
+            float health = playerShip.lock()->GetHealth();
+            float maxHealth = playerShip.lock()->GetMaxHealth();
+            mHealthText.setString("Health: " + std::to_string(static_cast<int>(health)) + "/" + std::to_string(static_cast<int>(maxHealth)));
+        }
     }
 
     void GameApplication::Render(sf::RenderWindow &window){
@@ -102,6 +116,7 @@ namespace saga{
 
         Application::Render(window);
         window.draw(mKillCountText);
+        window.draw(mHealthText);
     }
 
     void GameApplication::AddEnemyKill()
