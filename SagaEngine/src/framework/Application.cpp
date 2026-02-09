@@ -74,11 +74,11 @@ namespace saga{
     void Application::RenderInternal()
     {
         mWindow.clear(sf::Color::Black);
-        Render();
+        Render(mWindow);
         mWindow.display();
     }
 
-    void Application::Render()
+    void Application::Render(sf::RenderWindow& window)
     {
         if(currentWorld){
             currentWorld->Render(mWindow);

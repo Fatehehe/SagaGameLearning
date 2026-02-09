@@ -10,6 +10,7 @@ namespace saga {
 
         Application(unsigned int windowWidth, unsigned int windowHeight, const std::string& title, std::uint32_t style );
         void Run();
+        virtual void Render(sf::RenderWindow& window);
 
         template<typename WorldType>
         weak<WorldType> LoadWorld();
@@ -21,7 +22,6 @@ namespace saga {
         void TickInternal(float deltaTime);
         virtual void Tick(float deltaTime);
         void RenderInternal();
-        virtual void Render();
 
         sf::RenderWindow mWindow;
         float mTargetFrameRate; 

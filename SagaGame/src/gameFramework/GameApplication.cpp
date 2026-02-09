@@ -1,3 +1,4 @@
+#include <iostream>
 #include "gameFramework/GameApplication.h"
 #include "framework/World.h"
 #include "framework/Actor.h"
@@ -14,9 +15,21 @@ namespace saga{
 
     GameApplication::GameApplication()
     : Application{800,600, "Saga Window", sf::Style::Titlebar | sf::Style::Close},
-    mSpawnInterval{1.5f}
+    mSpawnInterval{1.5f},
+    mKillCountText{mFont}
     {
         AssetManager::Get().SetAssetRootDirectory(GetResourceDirectory());
+
+        if(!mFont.openFromFile(GetResourceDirectory() + "Fonts/Kenney Future.ttf")){
+            std::cerr << "Failed to load font" << std::endl;
+        }
+
+        mKillCountText.setFont(mFont);
+        mKillCountText.setCharacterSize(18);
+        mKillCountText.setFillColor(sf::Color::White);
+        mKillCountText.setPosition(sf::Vector2f{10.f,10.f});
+        mKillCountText.setString("Kills: 0");
+
         mWorld = LoadWorld<World>(); 
         playerShip = mWorld.lock()->SpawnActor<PlayerShip>();
         playerShip.lock()->SetActorLocation(sf::Vector2f{400.f, 300.f});
@@ -31,10 +44,16 @@ namespace saga{
         }
     }
 
+    void GameApplication::Render(sf::RenderWindow &window){
+        Application::Render(window);
+        window.draw(mKillCountText);
+    }
+
     void GameApplication::AddEnemyKill()
     {
         ++mEnemyKillCount;
-        LOG("Enemy kill count: %d", mEnemyKillCount);
+        // LOG("Enemy kill count: %d", mEnemyKillCount);
+        mKillCountText.setString("Kills: " + std::to_string(mEnemyKillCount));
 
         if(!playerShip.expired()){
             auto player = playerShip.lock();
