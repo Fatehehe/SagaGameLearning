@@ -5,6 +5,12 @@
 #include <SFML/Graphics/Text.hpp>
 
 namespace saga{
+    enum class GameState {
+        MainMenu,
+        Running,
+        GameOver
+    };
+
     class PlayerShip;
     class GameApplication: public Application{
     public:
@@ -15,7 +21,16 @@ namespace saga{
         void AddEnemyKill();
         int GetEnemyKillCount() const {return mEnemyKillCount;}
 
+        void OnPlayerDeath();
+
     private:
+        GameState mGameState = GameState::MainMenu;
+
+        sf::Text mTitleText;
+        sf::Text mStartPromptText;
+        sf::Text mGameOverText;
+        sf::Text mFinalScoreText;
+
         weak<PlayerShip> playerShip;
         weak<World> mWorld;
 
@@ -26,5 +41,8 @@ namespace saga{
         int mEnemyKillCount = 0;
         sf::Font mFont;
         sf::Text mKillCountText;
+
+        void StartGame();
+        void RestartGame();
     };
 }

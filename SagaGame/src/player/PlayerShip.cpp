@@ -3,6 +3,7 @@
 #include "player/PlayerShip.h"
 #include "SFML/Graphics.hpp"
 #include "framework/World.h"
+#include "gameFramework/GameApplication.h"
 
 namespace saga{
     PlayerShip::PlayerShip(World *ownerWorld, const std::string &path)
@@ -63,6 +64,9 @@ namespace saga{
         if(mHealth.IsDead()){
             GetWorld()->QueueActorForImmediateRemoval(this);
             //TODO: Trigger Game Over
+            if(auto* app = dynamic_cast<GameApplication*>(GetWorld()->GetApplication())){
+                app->OnPlayerDeath();
+            }
         }
     }
 

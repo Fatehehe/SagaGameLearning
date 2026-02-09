@@ -16,14 +16,47 @@ namespace saga{
     GameApplication::GameApplication()
     : Application{800,600, "Saga Window", sf::Style::Titlebar | sf::Style::Close},
     mSpawnInterval{1.5f},
-    mKillCountText{mFont}
+    mKillCountText{mFont},
+    mEnemyKillCount{0},
+    mTitleText{mFont, "", 48},
+    mStartPromptText{mFont, "", 24},
+    mGameOverText{mFont, "", 48},
+    mFinalScoreText{mFont, "", 24}
     {
         AssetManager::Get().SetAssetRootDirectory(GetResourceDirectory());
 
         if(!mFont.openFromFile(GetResourceDirectory() + "Fonts/Kenney Future.ttf")){
             std::cerr << "Failed to load font" << std::endl;
         }
+        //Title text
+        mTitleText.setFont(mFont);
+        mTitleText.setString("BULLET SAGA");
+        mTitleText.setCharacterSize(48);
+        mTitleText.setFillColor(sf::Color::White);
+        mTitleText.setPosition(sf::Vector2f{200.f, 150.f});
 
+        //Start prompt
+        mStartPromptText.setFont(mFont);
+        mStartPromptText.setString("Press Enter to Start");
+        mStartPromptText.setCharacterSize(24);
+        mStartPromptText.setFillColor(sf::Color::White);
+        mStartPromptText.setPosition(sf::Vector2f{200.f, 250.f});
+        
+        //gameover text
+        mGameOverText.setFont(mFont);
+        mGameOverText.setString("GAME OVER");
+        mGameOverText.setCharacterSize(48);
+        mGameOverText.setFillColor(sf::Color::Red);
+        mGameOverText.setPosition(sf::Vector2f{200.f, 150.f});
+
+        //final score text
+        mFinalScoreText.setFont(mFont);
+        // mFinalScoreText.setString("Press Enter to Start");
+        mFinalScoreText.setCharacterSize(24);
+        mFinalScoreText.setFillColor(sf::Color::White);
+        mFinalScoreText.setPosition(sf::Vector2f{200.f, 250.f});
+
+        //Kill UI
         mKillCountText.setFont(mFont);
         mKillCountText.setCharacterSize(18);
         mKillCountText.setFillColor(sf::Color::White);
@@ -38,6 +71,17 @@ namespace saga{
 
     void GameApplication::Tick(float deltaTime)
     {
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter)){
+            if(mGameState == GameState::MainMenu){
+                StartGame();
+            }else if(mGameState == GameState::GameOver){
+                RestartGame();
+            }
+
+            if(mGameState == GameState::Running){
+                return;
+            }
+        }
         if(mEnemySpawnClock.getElapsedTime().asSeconds() > mSpawnInterval){
             mEnemySpawnClock.restart();
             SpawnEnemy();
@@ -45,6 +89,17 @@ namespace saga{
     }
 
     void GameApplication::Render(sf::RenderWindow &window){
+        if(mGameState == GameState::MainMenu){
+            window.draw(mTitleText);
+            window.draw(mStartPromptText);
+            return;
+        }
+        if(mGameState == GameState::GameOver){
+            window.draw(mGameOverText);
+            window.draw(mFinalScoreText);
+            return;
+        }
+
         Application::Render(window);
         window.draw(mKillCountText);
     }
@@ -61,6 +116,12 @@ namespace saga{
                 player->UpgradeToSpreadShot();
             }
         }
+    }
+
+    void GameApplication::OnPlayerDeath()
+    {
+        mGameState = GameState::GameOver;
+        mFinalScoreText.setString("Kills: " + std::to_string(mEnemyKillCount) + "\nPress Enter to Restart");
     }
 
     void GameApplication::SpawnEnemy()
@@ -89,4 +150,22 @@ namespace saga{
         enemy.lock()->SetActorRotation(180.f);
         enemy.lock()->SetTarget(player.get());
     }
+
+    void GameApplication::StartGame()
+    {
+        mGameState = GameState::Running;
+        mEnemyKillCount = 0;
+        mWorld = LoadWorld<World>();
+        playerShip = mWorld.lock()->SpawnActor<PlayerShip>();
+        playerShip.lock()->SetActorLocation(sf::Vector2f{400.f, 300.f});
+        playerShip.lock()->SetActorRotation(0.f);
+
+        mKillCountText.setString("Kills: 0");
+    }
+    
+    void GameApplication::RestartGame()
+    {
+        mGameState = GameState::MainMenu;
+    }
 }
+
