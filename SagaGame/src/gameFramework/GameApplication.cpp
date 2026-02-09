@@ -38,10 +38,20 @@ namespace saga{
 
         //Health text
         mHealthText.setFont(mFont);
-        mHealthText.setString("Health: 100");
+        mHealthText.setString("100/100");
         mHealthText.setCharacterSize(18);
-        mHealthText.setFillColor(sf::Color::White);
+        mHealthText.setFillColor(sf::Color::Black);
         mHealthText.setPosition(sf::Vector2f{600.f, 10.f});
+
+        //Health Bar
+        mHealthBarBack.setSize(sf::Vector2f{200.f, 20.f});
+        mHealthBarBack.setFillColor(sf::Color::White);
+        mHealthBarBack.setPosition(sf::Vector2f{580.f, 10.f});
+
+        //HealthBar fill
+        mHealthBarFill.setSize(sf::Vector2f{200.f, 10.f});
+        mHealthBarFill.setFillColor(sf::Color(242, 160, 23));
+        mHealthBarFill.setPosition(sf::Vector2f{580.f, 10.f});
 
         //Start prompt
         mStartPromptText.setFont(mFont);
@@ -98,7 +108,12 @@ namespace saga{
         if(!playerShip.expired()){
             float health = playerShip.lock()->GetHealth();
             float maxHealth = playerShip.lock()->GetMaxHealth();
-            mHealthText.setString("Health: " + std::to_string(static_cast<int>(health)) + "/" + std::to_string(static_cast<int>(maxHealth)));
+            mHealthText.setString(std::to_string(static_cast<int>(health)) + "/" + std::to_string(static_cast<int>(maxHealth)));
+
+            float healthPercent = playerShip.lock()->GetHealthPercentage();
+            float barWidth = 200.f * std::clamp(healthPercent, 0.f, 1.f);
+            mHealthBarFill.setSize(sf::Vector2f{barWidth, 20.f});
+
         }
     }
 
@@ -116,6 +131,8 @@ namespace saga{
 
         Application::Render(window);
         window.draw(mKillCountText);
+        window.draw(mHealthBarBack);
+        window.draw(mHealthBarFill);
         window.draw(mHealthText);
     }
 

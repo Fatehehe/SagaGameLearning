@@ -41,6 +41,8 @@ namespace saga{
         int mEnemyKillCount = 0;
         sf::Font mFont;
         sf::Text mKillCountText;
+        sf::RectangleShape mHealthBarBack;
+        sf::RectangleShape mHealthBarFill;
 
         sf::Text mHealthText;
 
