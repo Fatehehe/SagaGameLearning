@@ -35,7 +35,10 @@ namespace saga{
         weak<World> mWorld;
 
         sf::Clock mEnemySpawnClock;
-        float mSpawnInterval;
+        sf::Clock mGameTimeClock;
+        float mSpawnInterval = 1.5f;
+        float mMinimumSpawnInterval = 0.1f;
+        float mSpawnAccelerationRate = 0.01f;
         void SpawnEnemy();
 
         int mEnemyKillCount = 0;

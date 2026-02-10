@@ -111,14 +111,21 @@ namespace saga{
 
     void PlayerShip::TransformInput(float deltaTime)
     {
+        const float rotationSpeed = 540.f;
+        
         if(mMoveInput != sf::Vector2f{0.f,0.f}){
             mMoveInput = mMoveInput.normalized();
+            SetVelocity(mMoveInput * mShipStats.GetMoveSpeed());
 
             float angleRadians = std::atan2(mMoveInput.y, mMoveInput.x);
-            float angleDegrees = sf::radians(angleRadians).asDegrees();
-            SetActorRotation(angleDegrees + 90.f);
+            float angleDegrees = sf::radians(angleRadians).asDegrees() + 90.f;
 
-            SetVelocity(mMoveInput * mShipStats.GetMoveSpeed());
+            float currentAngle = GetActorRotation();
+            float deltaAngle = std::fmod((angleDegrees - currentAngle + 540.f), 360.f) - 180.f;
+            float maxStep = rotationSpeed * deltaTime;
+            deltaAngle = std::clamp(deltaAngle, -maxStep, maxStep);
+
+            SetActorRotation(currentAngle + deltaAngle);
         }else{
             SetVelocity(sf::Vector2f{0.f, 0.f});
         }

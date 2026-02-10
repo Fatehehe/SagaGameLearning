@@ -15,9 +15,7 @@ namespace saga{
 
     GameApplication::GameApplication()
     : Application{800,600, "Saga Window", sf::Style::Titlebar | sf::Style::Close},
-    mSpawnInterval{1.5f},
     mKillCountText{mFont},
-    mEnemyKillCount{0},
     mTitleText{mFont, "", 48},
     mHealthText{mFont, "", 18},
     mStartPromptText{mFont, "", 24},
@@ -95,14 +93,19 @@ namespace saga{
             }else if(mGameState == GameState::GameOver){
                 RestartGame();
             }
-
-            if(mGameState == GameState::Running){
-                return;
-            }
         }
+       
+        if(mGameState != GameState::Running){
+            return;
+        }
+
+        float gameTime = mGameTimeClock.getElapsedTime().asSeconds();
+        mSpawnInterval = std::max(mMinimumSpawnInterval, 1.5f - (gameTime * mSpawnAccelerationRate));
+
         if(mEnemySpawnClock.getElapsedTime().asSeconds() > mSpawnInterval){
             mEnemySpawnClock.restart();
             SpawnEnemy();
+            LOG("Time: %.2f | Spawntime: %.2f", gameTime, mSpawnInterval);
         }
 
         if(!playerShip.expired()){
@@ -187,6 +190,10 @@ namespace saga{
     {
         mGameState = GameState::Running;
         mEnemyKillCount = 0;
+        mSpawnInterval = 1.5f;
+        mGameTimeClock.restart();
+        mEnemySpawnClock.restart();
+
         mWorld = LoadWorld<World>();
         playerShip = mWorld.lock()->SpawnActor<PlayerShip>();
         playerShip.lock()->SetActorLocation(sf::Vector2f{400.f, 300.f});
