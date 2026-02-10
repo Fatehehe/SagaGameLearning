@@ -113,8 +113,15 @@ namespace saga{
     {
         if(mMoveInput != sf::Vector2f{0.f,0.f}){
             mMoveInput = mMoveInput.normalized();
+
+            float angleRadians = std::atan2(mMoveInput.y, mMoveInput.x);
+            float angleDegrees = sf::radians(angleRadians).asDegrees();
+            SetActorRotation(angleDegrees + 90.f);
+
+            SetVelocity(mMoveInput * mShipStats.GetMoveSpeed());
+        }else{
+            SetVelocity(sf::Vector2f{0.f, 0.f});
         }
-        SetVelocity(mMoveInput * mShipStats.GetMoveSpeed());
         mMoveInput = sf::Vector2f{0.f,0.f};
     }
 }
